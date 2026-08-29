@@ -1,145 +1,258 @@
-import React, { useState } from 'react';
-import { SENSORY_AMENITIES, KidAmenity } from '../../data/kidsDentalData';
-import { Shield, Sparkles, Heart, Tv, UserCheck, Award, CheckCircle2, ChevronRight, Compass, Smile } from 'lucide-react';
+import React from 'react';
+import { SENSORY_AMENITIES } from '../../data/kidsDentalData';
+import { Heart, Tv, ShieldCheck, Sun, Coffee, Sparkles } from 'lucide-react';
 
 interface KidsSensoryAmenitiesProps {
-  onOpenBooking: (amenityTitle: string) => void;
+  onOpenBooking: (amenityNote?: string) => void;
 }
 
 export const KidsSensoryAmenities: React.FC<KidsSensoryAmenitiesProps> = ({ onOpenBooking }) => {
-  const [activeAmenityId, setActiveAmenityId] = useState<string>(SENSORY_AMENITIES[0].id);
-
-  const activeAmenity: KidAmenity = SENSORY_AMENITIES.find(a => a.id === activeAmenityId) || SENSORY_AMENITIES[0];
-
-  const getIcon = (iconName: string) => {
-    switch (iconName) {
-      case 'Shield': return <Shield className="w-4 h-4 text-sky-600" />;
-      case 'Tv': return <Tv className="w-4 h-4 text-indigo-600" />;
-      case 'Heart': return <Heart className="w-4 h-4 text-rose-500" />;
-      case 'UserCheck': return <UserCheck className="w-4 h-4 text-teal-600" />;
-      case 'Sparkles': return <Sparkles className="w-4 h-4 text-amber-500" />;
-      case 'Award': return <Award className="w-4 h-4 text-teal-600" />;
-      default: return <Smile className="w-4 h-4 text-sky-600" />;
-    }
-  };
-
   return (
-    <section id="sensory" className="py-16 sm:py-24 bg-gradient-to-b from-white via-sky-50/40 to-white border-b border-sky-100 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-8">
+    <section id="sensory" className="py-16 sm:py-24 bg-[#FBFBF9] border-b border-slate-200/80">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-semibold border border-emerald-200/80 mb-3">
-              <Compass className="w-3.5 h-3.5 text-emerald-600" />
-              <span>Sensory Comfort & Neurodiversity Friendly</span>
-            </div>
-            <h2 className="font-outfit text-3xl sm:text-4xl lg:text-5xl text-slate-900 font-extrabold tracking-tight">
-              A peaceful environment designed to <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-teal-600">eliminate fear</span> from the moment you arrive.
-            </h2>
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 text-amber-900 text-xs font-semibold border border-amber-200/80">
+            <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500" />
+            <span>Child Sensory Sanctuary & Private Suites</span>
           </div>
-          <p className="text-sm sm:text-base text-slate-600 max-w-sm leading-relaxed">
-            Crafted alongside child development specialists, Little Orbit eliminates scary noises, harsh glare, and sensory overwhelm.
+
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+            Designed to calm senses and replace anxiety with joyful wonder
+          </h2>
+
+          <p className="text-sm sm:text-base text-slate-600 font-normal leading-relaxed">
+            From our golden retriever therapy dog to ceiling cinema screens and parent armchairs, every square inch of our clinic is engineered for total peace of mind.
           </p>
         </div>
 
-        {/* 2-Column Showcase Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        {/* Feature Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           
-          {/* Left Column: Interactive Amenity List */}
-          <div className="lg:col-span-5 space-y-3">
-            {SENSORY_AMENITIES.map((amenity) => {
-              const isActive = amenity.id === activeAmenityId;
-              return (
-                <button
-                  key={amenity.id}
-                  onClick={() => setActiveAmenityId(amenity.id)}
-                  className={`w-full text-left p-4 sm:p-5 rounded-2xl border-2 transition-all duration-200 flex items-start gap-4 ${
-                    isActive
-                      ? 'bg-white text-slate-900 border-sky-500 shadow-md shadow-sky-100 ring-2 ring-sky-100'
-                      : 'bg-white/85 text-slate-700 border-slate-200 hover:border-sky-300 hover:bg-sky-50/40 shadow-2xs'
-                  }`}
-                >
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 bg-sky-50 border border-sky-100">
-                    {getIcon(amenity.iconName)}
+          {/* Barnaby Therapy Dog Card - Highlight with Real Photo */}
+          <div className="lg:col-span-2 bg-gradient-to-br from-amber-50/90 via-white to-amber-100/40 rounded-3xl p-6 sm:p-8 border-2 border-amber-300 shadow-md flex flex-col justify-between overflow-hidden">
+            <div>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-amber-200/70">
+                <div className="flex items-center gap-3">
+                  <img
+                    src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=200&h=200&q=80"
+                    alt="Barnaby the certified therapy dog"
+                    referrerPolicy="no-referrer"
+                    className="w-14 h-14 rounded-2xl object-cover border-2 border-amber-300 shadow-sm shrink-0"
+                  />
+                  <div>
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-amber-800 bg-amber-100 px-2.5 py-0.5 rounded-full border border-amber-200">
+                      Child Favorite Companion
+                    </span>
+                    <h3 className="text-xl font-bold text-slate-900 mt-1">
+                      Meet Barnaby • Certified Pediatric Therapy Dog
+                    </h3>
                   </div>
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between">
-                      <span className={`text-[11px] font-bold uppercase tracking-wider ${
-                        isActive ? 'text-sky-600' : 'text-slate-500'
-                      }`}>
-                        {amenity.badge}
-                      </span>
-                    </div>
-                    <div className="font-outfit font-bold text-sm tracking-tight mt-0.5 leading-snug text-slate-900">
-                      {amenity.name}
-                    </div>
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Right Column: In-Depth Spotlight Card */}
-          <div className="lg:col-span-7 bg-white rounded-3xl border border-sky-100 shadow-md shadow-sky-900/5 overflow-hidden flex flex-col justify-between">
-            
-            <div className="relative h-72 sm:h-80 overflow-hidden bg-slate-100">
-              <img
-                src={activeAmenity.image}
-                alt={activeAmenity.name}
-                className="w-full h-full object-cover"
-                referrerPolicy="no-referrer"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
-              
-              <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3.5 py-1 rounded-full text-xs font-bold text-slate-800 border border-sky-100 shadow-xs">
-                {activeAmenity.badge}
-              </div>
-
-              <div className="absolute bottom-4 left-6 right-6 text-white">
-                <p className="text-xs uppercase font-bold tracking-wider text-amber-300">
-                  {activeAmenity.architectureSubtitle}
-                </p>
-                <h3 className="font-outfit text-xl sm:text-2xl font-bold leading-snug mt-0.5">
-                  {activeAmenity.name}
-                </h3>
-              </div>
-            </div>
-
-            <div className="p-6 sm:p-8 space-y-5 flex-1 flex flex-col justify-between">
-              
-              <div className="space-y-4">
-                <p className="text-sm text-slate-600 leading-relaxed font-normal">
-                  {activeAmenity.description}
-                </p>
-
-                <div className="p-4 bg-teal-50/80 rounded-2xl border border-teal-100/90 space-y-1">
-                  <div className="text-xs font-bold uppercase tracking-wider text-teal-800 flex items-center gap-1.5">
-                    <CheckCircle2 className="w-4 h-4 text-teal-600" />
-                    <span>How This Helps Your Child</span>
-                  </div>
-                  <p className="text-xs sm:text-sm text-slate-700 font-medium">
-                    {activeAmenity.clinicalImpact}
-                  </p>
                 </div>
-              </div>
-
-              <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
-                <button
-                  onClick={() => onOpenBooking(`Sensory Amenity: ${activeAmenity.name}`)}
-                  className="bg-gradient-to-r from-sky-600 to-teal-600 hover:from-sky-700 hover:to-teal-700 text-white text-xs font-bold uppercase tracking-widest px-6 py-3.5 rounded-xl shadow-sm shadow-sky-200 flex items-center justify-center gap-2"
-                >
-                  <span>Request For Child's Visit</span>
-                  <ChevronRight className="w-4 h-4 text-amber-200" />
-                </button>
-                <span className="text-xs text-emerald-700 font-semibold bg-emerald-50 px-3 py-1.5 rounded-full text-center sm:text-right flex items-center justify-center sm:justify-end gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>Complimentary For All Patients</span>
+                <span className="text-xs font-bold text-amber-800 bg-white px-3 py-1 rounded-full border border-amber-200 shadow-sm self-start sm:self-auto">
+                  Hypoallergenic & Gentle
                 </span>
               </div>
 
+              <div className="grid grid-cols-1 sm:grid-cols-12 gap-5 mt-5 items-center">
+                <div className="sm:col-span-7">
+                  <p className="text-sm text-slate-700 leading-relaxed font-normal">
+                    Barnaby is our gentle Golden Retriever certified in animal-assisted pediatric support. He is trained to rest softly beside children on the treatment chair, offering comforting weight and warm companionship that naturally reduces cortisol and calms anxious thoughts.
+                  </p>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-4 text-xs">
+                    <div className="p-3 bg-white rounded-xl border border-amber-200 shadow-xs">
+                      <span className="font-bold text-slate-900 block">Bedside Chin Rest</span>
+                      <span className="text-slate-500 text-[11px] mt-0.5 block">Deep-pressure tactile calm.</span>
+                    </div>
+                    <div className="p-3 bg-white rounded-xl border border-amber-200 shadow-xs">
+                      <span className="font-bold text-slate-900 block">100% Hypoallergenic</span>
+                      <span className="text-slate-500 text-[11px] mt-0.5 block">Vetted medical grooming.</span>
+                    </div>
+                    <div className="p-3 bg-white rounded-xl border border-amber-200 shadow-xs">
+                      <span className="font-bold text-slate-900 block">Zero Extra Fee</span>
+                      <span className="text-slate-500 text-[11px] mt-0.5 block">Available on parent request.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="sm:col-span-5">
+                  <div className="rounded-2xl overflow-hidden shadow-sm border border-amber-200 bg-slate-100 h-44 sm:h-full min-h-[160px]">
+                    <img
+                      src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=600&q=80"
+                      alt="Barnaby therapy dog with children"
+                      referrerPolicy="no-referrer"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
 
+            <div className="pt-5 mt-4 border-t border-amber-200/70 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <span className="text-xs text-amber-900 font-semibold">
+                Available during all morning and afternoon private suite visits.
+              </span>
+              <button
+                onClick={() => onOpenBooking('Request Barnaby Therapy Dog Companion')}
+                className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shadow-sm transition-colors cursor-pointer text-center"
+              >
+                Request Barnaby for Visit
+              </button>
+            </div>
+          </div>
+
+          {/* Ceiling 4K Cinema */}
+          <div className="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-sm hover:border-teal-400 hover:shadow-md transition-all flex flex-col justify-between">
+            <div className="relative h-40 w-full overflow-hidden bg-slate-100">
+              <img
+                src="https://images.unsplash.com/photo-1629909615184-74f495363b67?auto=format&fit=crop&w=600&q=80"
+                alt="Modern pediatric dental suite ceiling screen"
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute top-3 left-3 w-8 h-8 rounded-xl bg-white/90 backdrop-blur-sm text-blue-600 flex items-center justify-center font-bold shadow-xs">
+                <Tv className="w-4 h-4" />
+              </div>
+              <div className="absolute bottom-2 right-2 px-2.5 py-1 rounded-md bg-slate-900/80 backdrop-blur-sm text-[11px] font-bold text-white">
+                4K Cinema
+              </div>
+            </div>
+
+            <div className="p-6 space-y-3 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 className="text-lg font-bold text-slate-900">
+                  Ceiling 4K Cinema & Cartoons
+                </h3>
+                <p className="text-xs text-slate-600 leading-relaxed mt-2">
+                  Ultra-high-definition ceiling displays positioned directly overhead. Children select their favorite shows on Netflix, Disney+, or YouTube Kids before care begins.
+                </p>
+
+                <div className="mt-3 p-3 bg-slate-50 rounded-xl border border-slate-100 text-xs text-slate-600">
+                  <span className="font-semibold text-slate-800 block">Headphones Included:</span>
+                  Child-sized wireless headphones block out any clinical equipment sounds.
+                </div>
+              </div>
+
+              <div className="pt-3 border-t border-slate-100 text-xs text-slate-500">
+                Bluey • Peppa Pig • Paw Patrol • Marvel
+              </div>
+            </div>
+          </div>
+
+          {/* Private Soundproof Suites */}
+          <div className="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-sm hover:border-teal-400 hover:shadow-md transition-all flex flex-col justify-between">
+            <div className="relative h-40 w-full overflow-hidden bg-slate-100">
+              <img
+                src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=600&q=80"
+                alt="Private pediatric suite interior"
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute top-3 left-3 w-8 h-8 rounded-xl bg-white/90 backdrop-blur-sm text-teal-600 flex items-center justify-center font-bold shadow-xs">
+                <ShieldCheck className="w-4 h-4" />
+              </div>
+              <div className="absolute bottom-2 right-2 px-2.5 py-1 rounded-md bg-slate-900/80 backdrop-blur-sm text-[11px] font-bold text-white">
+                Zero Separation
+              </div>
+            </div>
+
+            <div className="p-6 space-y-3 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 className="text-lg font-bold text-slate-900">
+                  Private Soundproof Suites
+                </h3>
+                <p className="text-xs text-slate-600 leading-relaxed mt-2">
+                  No open shared clinic bays with crying children in adjacent chairs. Each family has their own private, acoustically isolated suite for complete calm.
+                </p>
+
+                <div className="mt-3 p-3 bg-slate-50 rounded-xl border border-slate-100 text-xs text-slate-600">
+                  <span className="font-semibold text-slate-800 block">Dedicated Team:</span>
+                  100% focused attention from a pediatric specialist and trained assistant.
+                </div>
+              </div>
+
+              <div className="pt-3 border-t border-slate-100 text-xs text-slate-500">
+                Acoustic wall paneling • Clean air HEPA filtration
+              </div>
+            </div>
+          </div>
+
+          {/* Circadian Soft Lighting */}
+          <div className="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-sm hover:border-teal-400 hover:shadow-md transition-all flex flex-col justify-between">
+            <div className="relative h-40 w-full overflow-hidden bg-slate-100">
+              <img
+                src="https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=600&q=80"
+                alt="Warm daylight in pediatric clinic"
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute top-3 left-3 w-8 h-8 rounded-xl bg-white/90 backdrop-blur-sm text-amber-600 flex items-center justify-center font-bold shadow-xs">
+                <Sun className="w-4 h-4" />
+              </div>
+              <div className="absolute bottom-2 right-2 px-2.5 py-1 rounded-md bg-slate-900/80 backdrop-blur-sm text-[11px] font-bold text-white">
+                Soft 2700K Light
+              </div>
+            </div>
+
+            <div className="p-6 space-y-3 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 className="text-lg font-bold text-slate-900">
+                  Circadian Soft Lighting
+                </h3>
+                <p className="text-xs text-slate-600 leading-relaxed mt-2">
+                  We eliminated blinding white examination spotlights that hurt young eyes. Our ambient diffused fixtures simulate gentle morning daylight.
+                </p>
+
+                <div className="mt-3 p-3 bg-slate-50 rounded-xl border border-slate-100 text-xs text-slate-600">
+                  <span className="font-semibold text-slate-800 block">Tinted Sunglasses:</span>
+                  Fun UV-protective eyewear provided for every child during checkup.
+                </div>
+              </div>
+
+              <div className="pt-3 border-t border-slate-100 text-xs text-slate-500">
+                Soft warm light • Zero eye strain or harsh shadows
+              </div>
+            </div>
+          </div>
+
+          {/* Ergonomic Parent Armchairs */}
+          <div className="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-sm hover:border-teal-400 hover:shadow-md transition-all flex flex-col justify-between">
+            <div className="relative h-40 w-full overflow-hidden bg-slate-100">
+              <img
+                src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=600&q=80"
+                alt="Comfortable parent seating in clinic"
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute top-3 left-3 w-8 h-8 rounded-xl bg-white/90 backdrop-blur-sm text-emerald-600 flex items-center justify-center font-bold shadow-xs">
+                <Coffee className="w-4 h-4" />
+              </div>
+              <div className="absolute bottom-2 right-2 px-2.5 py-1 rounded-md bg-slate-900/80 backdrop-blur-sm text-[11px] font-bold text-white">
+                Parent Armchairs
+              </div>
+            </div>
+
+            <div className="p-6 space-y-3 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 className="text-lg font-bold text-slate-900">
+                  Parent Armchairs & Lounge
+                </h3>
+                <p className="text-xs text-slate-600 leading-relaxed mt-2">
+                  Parents are never separated. Sit comfortably right beside your child, hold their hand, or hold toddlers in your lap for gentle lap-to-lap checks.
+                </p>
+
+                <div className="mt-3 p-3 bg-slate-50 rounded-xl border border-slate-100 text-xs text-slate-600">
+                  <span className="font-semibold text-slate-800 block">Parent Hospitality:</span>
+                  Artisanal roast coffee, tea, and high-speed fiber in family lounge.
+                </div>
+              </div>
+
+              <div className="pt-3 border-t border-slate-100 text-xs text-slate-500">
+                Zero Separation Policy • Indiranagar Atelier
+              </div>
+            </div>
           </div>
 
         </div>
@@ -148,4 +261,3 @@ export const KidsSensoryAmenities: React.FC<KidsSensoryAmenitiesProps> = ({ onOp
     </section>
   );
 };
-

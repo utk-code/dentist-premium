@@ -1,13 +1,13 @@
 export interface KidService {
   id: string;
-  title: string;
+  name: string;
   category: string;
-  ageScope: string;
+  ageRange: string;
   tagline: string;
-  clinicalSummary: string;
-  biomimeticAdvantage: string;
-  protocols: string[];
-  image: string;
+  description: string;
+  benefits: string[];
+  recoveryTime: string;
+  imageUrl: string;
 }
 
 export interface KidAmenity {
@@ -17,340 +17,393 @@ export interface KidAmenity {
   description: string;
   clinicalImpact: string;
   badge: string;
-  iconName: string;
-  image: string;
+  imageUrl: string;
 }
 
-export interface AgeTrack {
+export interface AgeMilestone {
   id: string;
-  code: string;
-  ageRange: string;
-  stageName: string;
-  developmentalFocus: string;
-  clinicalScope: string;
-  examinationProtocols: string[];
-  pediatricianNote: string;
+  range: string;
+  title: string;
+  headline: string;
+  description: string;
+  imageUrl: string;
+  protocols: { name: string; desc: string }[];
+  milestones: string[];
+}
+
+export interface Doctor {
+  id: string;
+  name: string;
+  role: string;
+  education: string;
+  experienceYears: number;
+  bio: string;
+  imageUrl: string;
+  specialties: string[];
 }
 
 export interface KidReview {
   id: string;
-  author: string;
-  profile: string;
-  location: string;
-  rating: number;
-  highlight: string;
+  parentName: string;
+  parentRole: string;
+  childInfo: string;
+  date: string;
+  treatment: string;
   quote: string;
-  clinicalContext: string;
+  rating: number;
+  imageUrl: string;
 }
 
 export interface KidFAQ {
   id: string;
   question: string;
   answer: string;
-  category: 'First Appointments' | 'Sensory & Comfort' | 'Biological Treatments' | 'Insurance & Payments';
+  category: string;
+  clinicalNote?: string;
 }
 
-export const AGE_TRACKS: AgeTrack[] = [
+export interface PricingPackage {
+  id: string;
+  name: string;
+  price: string;
+  idealFor: string;
+  description: string;
+  inclusions: string[];
+  recommended?: boolean;
+}
+
+export const AGE_MILESTONES: AgeMilestone[] = [
   {
-    id: 'infant',
-    code: 'STAGE I',
-    ageRange: '0 – 24 Months',
-    stageName: 'Infant Airway & First Tooth Milestone',
-    developmentalFocus: 'Cranial growth, tongue & lip tie mobility, and primary tooth eruption tracking.',
-    clinicalScope: 'Unhurried lap-to-lap consultations designed around mother-infant comfort and feeding latch assessment.',
-    examinationProtocols: [
-      'Neonatal lingual & labial frenulum mobility check (tongue tie audit)',
-      'Early Childhood Caries (nursing bottle decay) prevention guidance',
-      'Infant airway patency & nocturnal breathing assessment',
-      'Gentle fluoride varnish remineralization & natural gum microbiome care'
+    id: 'stage-1',
+    range: '0 – 24 Months',
+    title: 'Infant & Toddler Care',
+    headline: 'First Tooth & Airway Foundations',
+    description: 'Gentle lap-to-lap examinations with mom or dad. We assess feeding ease, early tooth eruption, and check for tongue or lip ties.',
+    imageUrl: 'https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=800&q=80',
+    protocols: [
+      { name: 'Infant Airway & Tongue-Tie Check', desc: 'Screening for restricted ties that cause latching fatigue and mouth breathing.' },
+      { name: 'Enamel Mineralization Defense', desc: 'Gentle application of protective bio-varnish to safeguard first baby teeth.' },
+      { name: 'Parent Teething & Hygiene Coaching', desc: 'Custom night-time cleaning routines to prevent bottle decay.' },
+      { name: 'Lap-to-Lap Comfort Protocol', desc: 'Baby rests peacefully in parent’s lap with zero separation anxiety.' }
     ],
-    pediatricianNote: 'The Indian Society of Pedodontics and Preventive Dentistry (ISPPD) recommends a first dental visit by age 1 or when the first tooth erupts.'
+    milestones: [
+      'The AAPD recommends the first dental visit by age 1 or within 6 months of the first tooth.'
+    ]
   },
   {
-    id: 'toddler',
-    code: 'STAGE II',
-    ageRange: '2 – 5 Years',
-    stageName: 'Early Childhood & Habit Correction',
-    developmentalFocus: 'Habit breaking (thumb sucking, mouth breathing), desensitization, and milk tooth preservation.',
-    clinicalScope: 'Tell-Show-Do playful acclimatization with Swiss warm-water airflow polishing and zero instrument fear.',
-    examinationProtocols: [
-      'Warm-mist Guided Biofilm Therapy (100% vibration-free cleaning)',
-      'BPA-free pit & fissure sealants for early molar protection',
-      'Habit correction coaching for thumb sucking and pacifier use',
-      'Low-radiation digital RVG transillumination diagnostics'
+    id: 'stage-2',
+    range: '2 – 5 Years',
+    title: 'Early Childhood',
+    headline: 'Fear-Free Habit Building & 60-Sec Cavity Arrest',
+    description: 'Playful, interactive visits introducing the dental suite. Gentle warm water cleanings and drill-free cavity stops if decay starts.',
+    imageUrl: 'https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=800&q=80',
+    protocols: [
+      { name: '60-Second No-Drill Cavity Fill (SDF)', desc: 'Brush-on silver liquid stops decay in 60 seconds with zero needles.' },
+      { name: 'Swiss Airflow 37°C Warm Mist Cleaning', desc: 'Cleans plaque using 37°C warm water mist with sweet erythritol powder.' },
+      { name: 'Positive Habit Redirection', desc: 'Gentle positive reinforcement to stop thumb sucking and pacifier use.' },
+      { name: 'Child-Led Sensory Choice', desc: 'Kids pick their favorite Netflix cartoon and strawberry polish flavor.' }
     ],
-    pediatricianNote: 'Early friendly visits between ages 2–4 prevent adult dental fear and catch developmental arch narrowing early.'
+    milestones: [
+      'Early positive associations eliminate lifelong dental anxiety and build confident brushers.'
+    ]
   },
   {
-    id: 'school',
-    code: 'STAGE III',
-    ageRange: '6 – 11 Years',
-    stageName: 'Mixed Dentition & Arch Expansion',
-    developmentalFocus: 'Permanent molar eruption, non-invasive cavity arrest, and jaw expansion.',
-    clinicalScope: 'No-drill Silver Diamine Fluoride (SDF) and interceptive orthopedic jaw guidance to prevent future crooked teeth.',
-    examinationProtocols: [
-      'No-drill SDF biological cavity arrest without local injections',
-      'Phase I interceptive myofunctional & airway palate expansion',
-      'Custom sports mouthguards for cricket, swimming, and martial arts',
-      'Digital 3D intraoral optical scanning (zero gagging impression putty)'
+    id: 'stage-3',
+    range: '6 – 11 Years',
+    title: 'Mixed Dentition',
+    headline: 'Molar Protection & Natural Jaw Growth',
+    description: 'Guiding jaw expansion and protecting permanent adult molars as baby teeth shed. Screening for airway obstruction and sleep quality.',
+    imageUrl: 'https://images.unsplash.com/photo-1543332164-6e82f355badc?auto=format&fit=crop&w=800&q=80',
+    protocols: [
+      { name: 'Bioactive Molar Sealants', desc: 'Invisible shield over deep grooves on adult molars to prevent 80%+ of cavities.' },
+      { name: 'Gentle Myobrace Airway Expansion', desc: 'Removable night trainers guide wide dental arches and straight natural teeth.' },
+      { name: 'Painless Gentle Restorations', desc: 'Tooth-colored biocompatible ceramics when primary teeth need protection.' },
+      { name: 'Sleep & Breathing Growth Audit', desc: 'Catching mouth breathing, snoring, and crowded teeth early.' }
     ],
-    pediatricianNote: 'Interceptive orthodontic screening at age 7 guides natural jaw growth, often avoiding future permanent tooth extractions.'
+    milestones: [
+      'Age 7 is the golden window for interceptive airway orthopedics to prevent future braces.'
+    ]
   },
   {
-    id: 'adolescent',
-    code: 'STAGE IV',
-    ageRange: '12 – 18 Years',
-    stageName: 'Adolescent Orthodontics & Aesthetics',
-    developmentalFocus: 'Permanent teeth alignment, wisdom molar monitoring, and adolescent self-confidence.',
-    clinicalScope: 'Discreet digital clear aligners, aesthetic biomimetic restorations, and teenage sports protection.',
-    examinationProtocols: [
-      'Clear aligner digital orthodontic simulation and custom planning',
-      'Ultra-low dose digital OPG monitoring of developing wisdom teeth',
-      'Enamel-safe bio-compatible polishing and stain micro-abrasion',
-      'Teenage oral hygiene coaching for braces and active lifestyles'
+    id: 'stage-4',
+    range: '12 – 18 Years',
+    title: 'Adolescent & Teen',
+    headline: 'Smile Aesthetics & Sports Protection',
+    description: 'Empowering teens with modern invisible aligners, safe enamel whitening, sports mouthguards, and wisdom tooth growth scans.',
+    imageUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80',
+    protocols: [
+      { name: 'Invisible Clear Aligners', desc: 'Comfortable, discreet smile straightening tailored to teen lifestyles.' },
+      { name: 'Custom Shock-Absorbing Mouthguards', desc: 'Engineered for football, cricket, martial arts, and basketball safety.' },
+      { name: 'Gentle Stain Removal & Polish', desc: 'Removes food stains and restores natural brilliance for confident smiles.' },
+      { name: 'Wisdom Tooth 3D Growth Mapping', desc: 'Low-dose digital scans monitoring third molars before impaction occurs.' }
     ],
-    pediatricianNote: 'Teenagers benefit from empathetic, respectful consultations that empower them to take pride in their oral health.'
+    milestones: [
+      'Respectful, mature communication encourages teens to take independent pride in oral health.'
+    ]
   }
 ];
 
-export const KID_SERVICES: KidService[] = [
+export const SERVICES_DATA: KidService[] = [
   {
-    id: 'guided-biofilm',
-    title: 'Swiss Airflow® Guided Biofilm Therapy',
-    category: 'Preventative Biomimetics',
-    ageScope: 'All Ages',
-    tagline: 'Warm water kinetic micro-mist — zero mechanical metal scraping.',
-    clinicalSummary: 'Engineered in Switzerland, Guided Biofilm Therapy cleans plaque, biofilm, and dietary stains using a gentle 37°C tempered water mist and erythritol powder. It eliminates the cold sensitivity, scraping sounds, and vibration of old-school scaling.',
-    biomimeticAdvantage: 'Protects fragile young enamel while providing a soothing spa-like cleaning sensation.',
-    protocols: [
-      '100% heated 37°C purified warm water mist',
-      'Natural erythritol micro-powder with prebiotic xylitol',
-      'Zero scraping curettes or enamel scratching',
-      'Subgingival biofilm removal in under 15 minutes'
+    id: 'swiss-airflow',
+    name: 'Swiss Airflow 37°C Warm Water Mist',
+    category: 'Preventative Care',
+    ageRange: 'All Ages (0–18y)',
+    tagline: '100% scraper-free warm mist hygiene with sweet erythritol.',
+    description: 'Replaces vibrating metal scrapers with a soothing 37°C warm water mist. Cleans plaque, sugar film, and stains with zero sensitivity.',
+    benefits: [
+      'No cold sensitivity (body temperature water)',
+      'Zero sharp metal scraping on enamel',
+      'Infused with sweet, antibacterial erythritol',
+      'Completed comfortably in 12–15 minutes'
     ],
-    image: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=900'
+    recoveryTime: 'Immediate (Zero Downtime)',
+    imageUrl: 'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=800&q=80'
   },
   {
-    id: 'non-invasive-sdf',
-    title: 'No-Drill Biomimetic Cavity Arrest (SDF)',
-    category: 'Minimally Invasive Dentistry',
-    ageScope: 'Ages 1 – 12',
-    tagline: 'Silver Diamine Fluoride & SMART biological remineralization.',
-    clinicalSummary: 'For young children, invasive drilling and needle injections cause anxiety. We apply pharmaceutical-grade Silver Diamine Fluoride (SDF) to instantly sterilize active decay and harden tooth structure in 60 seconds without drills or injections.',
-    biomimeticAdvantage: 'Completely eliminates needles and rotary drills while preserving natural tooth vitality.',
-    protocols: [
-      'Topical brush application without rotary drills',
-      'Immediate antimicrobial arrest of cavity-causing bacteria',
-      'Glass ionomer biomimetic seal (SMART technique)',
-      '100% painless and zero post-treatment recovery downtime'
+    id: 'sdf-cavity-arrest',
+    name: 'Silver Diamine (SDF) 60-Sec Cavity Stop',
+    category: 'Painless Dentistry',
+    ageRange: 'Ages 1–12y',
+    tagline: 'Stops active decay in 60 seconds with zero drilling or needles.',
+    description: 'We apply gentle Silver Diamine Fluoride liquid directly onto the cavity with a tiny micro-brush. It hardens enamel and kills bacteria without needles.',
+    benefits: [
+      '100% needle-free and drill-free',
+      'Arrests tooth decay in under 60 seconds',
+      'No numb lips or post-procedure biting',
+      'Child eats snacks and plays immediately'
     ],
-    image: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=900'
+    recoveryTime: 'Zero Downtime',
+    imageUrl: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80'
   },
   {
-    id: 'laser-frenectomy',
-    title: 'Infant & Child Soft-Tissue Laser Frenectomy',
-    category: 'Specialized Infant Surgery',
-    ageScope: 'Ages 0 – 5',
-    tagline: 'Gentle, suture-free release of tongue and lip ties.',
-    clinicalSummary: 'Conducted using an advanced US FDA-approved dental laser, infant tongue and lip tie releases take less than two minutes with minimal tissue trauma, zero bleeding, no stitches, and instant improvement in nursing latch and speech development.',
-    biomimeticAdvantage: 'Immediate return to mother’s breastfeeding within our private mother-and-baby nursing suite.',
-    protocols: [
-      'Precise light-energy release with zero scalpel cuts',
-      'Under 2-minute procedure under gentle topical numbing',
-      'Integrated post-release tongue mobility exercises',
-      'Private air-conditioned lactation and nursing room'
+    id: 'laser-tongue-tie',
+    name: 'Gentle Infant Laser Tongue-Tie Release',
+    category: 'Infant Airway Care',
+    ageRange: 'Ages 0–5y',
+    tagline: 'Light-beam laser release in 90 seconds for effortless feeding.',
+    description: 'Gentle laser release of tight lingual and labial ties that cause feeding fatigue, reflux, and speech delay. No scissors, bleeding, or stitches.',
+    benefits: [
+      'Completed in under 90 seconds',
+      'Zero bleeding and no sutures needed',
+      'Immediate comfortable nursing in our quiet suite',
+      'Heals within 48–72 hours naturally'
     ],
-    image: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=900'
+    recoveryTime: 'Immediate Nursing',
+    imageUrl: 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80'
   },
   {
-    id: 'habit-appliances',
-    title: 'Habit Breaking & Airway Myofunctional Appliances',
-    category: 'Facial Growth & Airway',
-    ageScope: 'Ages 3 – 12',
-    tagline: 'Gentle correction for thumb sucking, mouth breathing & tongue thrusting.',
-    clinicalSummary: 'Chronic mouth breathing, pacifier dependence, and thumb sucking disrupt normal jaw growth and cause open bites. Our custom-designed, comfortable habit appliances and myofunctional trainers gently guide natural nasal breathing and proper tongue posture.',
-    biomimeticAdvantage: 'Corrects the root muscular causes of crooked teeth without painful force.',
-    protocols: [
-      'Custom 3D scanned comfortable oral trainers',
-      'Nasal breathing and lip seal exercise therapy',
-      'Non-punitive positive reinforcement rewards',
-      'Prevents severe future skeletal jaw surgery'
+    id: 'myobrace-expansion',
+    name: 'Myobrace Gentle Airway & Jaw Expansion',
+    category: 'Airway Growth',
+    ageRange: 'Ages 4–12y',
+    tagline: 'Comfortable night trainers for straight teeth and nasal breathing.',
+    description: 'Soft silicone habit trainers worn during sleep that encourage nasal breathing, correct tongue resting posture, and guide wide, straight jaw arches.',
+    benefits: [
+      'Reduces the need for metal braces later',
+      'Stops mouth breathing and nighttime snoring',
+      'Corrects tongue thrust and thumb sucking',
+      'Worn just 1 hour during the day plus overnight'
     ],
-    image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=900'
+    recoveryTime: 'Comfortable Sleep Wear',
+    imageUrl: 'https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&w=800&q=80'
   },
   {
-    id: 'biomimetic-sealants',
-    title: 'Pit & Fissure Bio-Shields & Fluoride Varnish',
-    category: 'Preventative Biomimetics',
-    ageScope: 'Ages 4 – 16',
-    tagline: 'Protective resin barrier against deep groove cavities in molars.',
-    clinicalSummary: 'Deep natural grooves on milk and permanent molars trap food particles and cause 85% of childhood cavities. We apply flowable, fluoride-releasing sealants that seal grooves completely without any tooth cutting.',
-    biomimeticAdvantage: 'Requires zero tooth trimming, creating an impenetrable shield against bacterial decay.',
-    protocols: [
-      'Painless warm-water surface preparation',
-      'BPA-free, biocompatible fluoride-releasing sealant',
-      'Instant blue LED curing in under 20 seconds',
-      'Proven 80%+ reduction in molar cavities'
+    id: 'bioactive-sealants',
+    name: 'Bioactive Tooth Armor (Pit & Fissure Sealants)',
+    category: 'Preventative Care',
+    ageRange: 'Ages 5–16y',
+    tagline: 'Shields deep grooves on permanent molars from 80%+ of cavities.',
+    description: 'A smooth, clear protective coating painted over the deep chewing grooves of adult molars. Blocks food particles and releases calcium and fluoride.',
+    benefits: [
+      'Blocks 80%+ of childhood chewing cavities',
+      'BPA-free and mineral-releasing resin',
+      'Painted on in seconds with safe curing light',
+      'Lasts 3–5 years through chewing years'
     ],
-    image: 'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=900'
+    recoveryTime: 'Immediate Eating',
+    imageUrl: 'https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&w=800&q=80'
   },
   {
-    id: 'pulpectomy-zirconia',
-    title: 'Single-Visit Pulpectomy & Bio-Zirconia Milk Crowns',
-    category: 'Minimally Invasive Dentistry',
-    ageScope: 'Ages 2 – 9',
-    tagline: 'Natural tooth-colored ceramic crowns for deep cavities.',
-    clinicalSummary: 'When decay reaches the nerve of a baby molar, a gentle pulpectomy saves the tooth from extraction. We restore it with aesthetic, metal-free bio-zirconia ceramic crowns that look completely natural and protect the tooth until it falls out naturally.',
-    biomimeticAdvantage: 'Metal-free, biocompatible zirconia with superior strength and natural tooth aesthetics.',
-    protocols: [
-      'Single-visit gentle nerve cleaning under local comfort gel',
-      'Antibacterial biocompatible root filling',
-      'Pre-formed aesthetic white zirconia crown cementation',
-      'Maintains dental arch space for incoming permanent teeth'
+    id: 'white-ceramic-crowns',
+    name: 'Natural White Ceramic Crowns for Kids',
+    category: 'Biomimetic Restoration',
+    ageRange: 'Ages 2–9y',
+    tagline: 'Strong, tooth-colored ceramic crowns for deep baby tooth decay.',
+    description: 'Metal-free, ultra-biocompatible zirconia crowns that match your child’s natural tooth shade and protect teeth until they shed naturally.',
+    benefits: [
+      '100% natural white appearance (No silver metal)',
+      'Ultra-smooth surface prevents plaque buildup',
+      'Gentle placement with comforting topical numbing',
+      'Preserves space for incoming adult teeth'
     ],
-    image: 'https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&q=80&w=900'
+    recoveryTime: 'Same-Day Recovery',
+    imageUrl: 'https://images.unsplash.com/photo-1588776814546-daab30f310ce?auto=format&fit=crop&w=800&q=80'
   }
 ];
 
-export const SENSORY_AMENITIES: KidAmenity[] = [
+export const DOCTORS: Doctor[] = [
   {
-    id: 'private-operatory',
-    name: 'Private Soundproof Suites with Soft Lighting',
-    architectureSubtitle: 'Zero-Overstimulation Operatory Architecture',
-    description: 'Each operatory is engineered as a calm, soundproof private suite. No scary medical tools in plain sight, with warm indirect dimmable lighting to prevent optical glare and keep children relaxed.',
-    clinicalImpact: 'Reduces clinical anxiety and elevates child comfort within the first 3 minutes.',
-    badge: 'Acoustic Architecture',
-    iconName: 'Shield',
-    image: 'https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&q=80&w=900'
+    id: 'dr-maya-nair',
+    name: 'Dr. Maya Nair',
+    role: 'Lead Pediatric Specialist & Founder',
+    education: 'BDS (Gold Medalist), MDS Pediatric Dentistry (AIIMS New Delhi)',
+    experienceYears: 14,
+    imageUrl: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=600&q=80',
+    bio: 'AIIMS Gold Medalist with over 14 years dedicated exclusively to pediatric dentistry. Dr. Maya specializes in fear-free behavioral guidance, airway-centric orthopedics, and needle-free remineralization protocols.',
+    specialties: [
+      'Fear-Free Pediatric Psychology',
+      'Needle-Free SDF Cavity Care',
+      'Pediatric Airway Growth & Myobrace',
+      'AIIMS New Delhi Gold Medalist'
+    ]
   },
   {
-    id: 'ceiling-cinema',
-    name: 'Ceiling Cartoon Screen with Wireless Headphones',
-    architectureSubtitle: 'Immersive Visual Distraction System',
-    description: 'Mounted flush with the ceiling above each pediatric dental chair is a 4K display where children watch their favorite shows (Chhota Bheem, Bluey, Peppa Pig, or Disney) with wireless soft headphones.',
-    clinicalImpact: 'Completely redirects cognitive attention away from dental procedures.',
-    badge: 'Digital Entertainment',
-    iconName: 'Tv',
-    image: 'https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&q=80&w=900'
+    id: 'dr-leo-mathew',
+    name: 'Dr. Leo Mathew',
+    role: 'Pediatric Surgeon & Laser Fellow',
+    education: 'BDS, MDS Pediatric Dentistry (Manipal University), Fellow ISPPD',
+    experienceYears: 11,
+    imageUrl: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=600&q=80',
+    bio: 'Certified in Pediatric Advanced Life Support (PALS) with advanced hospital fellowship training in light-beam dental lasers, infant tongue-tie release, and gentle pediatric emergency trauma care.',
+    specialties: [
+      'Infant Laser Frenectomy (Tongue-Tie)',
+      'Pediatric Dental Trauma & Emergencies',
+      'PALS Certified (Life Support)',
+      'ISPPD Fellow & Manipal Alum'
+    ]
+  }
+];
+
+export const PRICING_PACKAGES: PricingPackage[] = [
+  {
+    id: 'first-visit',
+    name: 'First Visit & Airway Audit',
+    price: '₹750',
+    idealFor: 'New Little Patients',
+    description: 'An unhurried 45-minute introductory visit in a private suite with parent bedside and Barnaby the therapy dog.',
+    inclusions: [
+      'Comprehensive pediatric oral exam',
+      'Airway, breathing & tongue-tie audit',
+      'Intraoral camera digital photos',
+      'Child bravery gold coin & toy prize',
+      'Personalized cavity prevention guide'
+    ],
+    recommended: true
   },
   {
-    id: 'therapy-canine',
-    name: 'Barnaby — Certified Pediatric Therapy Dog',
-    architectureSubtitle: 'Gentle Deep-Pressure Companionship',
-    description: 'Barnaby is a certified Golden Retriever therapy dog trained specifically for pediatric clinical environments. Fully vaccinated and hypoallergenic-groomed, he provides gentle lap companionship on request.',
-    clinicalImpact: 'Lowers heart rate and stimulates oxytocin for immediate emotional reassurance.',
-    badge: 'Therapy Companion',
-    iconName: 'Heart',
-    image: 'https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&q=80&w=900'
+    id: 'warm-mist-spa',
+    name: 'Swiss Airflow Warm Mist Cleaning',
+    price: '₹1,800',
+    idealFor: 'Ages 2–18y Hygiene',
+    description: '37°C warm water mist cleaning infused with erythritol powder. Completely eliminates scraping tools.',
+    inclusions: [
+      'Gentle 37°C warm water mist cleaning',
+      'Natural berry or mango flavor polish',
+      'Protective bio-fluoride varnish coat',
+      'Ceiling Netflix cartoons & headphones',
+      'Zero scraping or vibration tools'
+    ]
   },
   {
-    id: 'parent-chaise',
-    name: 'Parent Comfort Chair Beside Child At All Times',
-    architectureSubtitle: 'Strict Zero-Separation Policy',
-    description: 'We firmly believe children feel safest when parents are by their side. A comfortable armchair is positioned right next to the dental chair for continuous hand-holding and presence.',
-    clinicalImpact: 'Maintains parental eye contact throughout the entire consultation.',
-    badge: 'Parent Proximity',
-    iconName: 'UserCheck',
-    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=900'
-  },
-  {
-    id: 'flavor-apothecary',
-    name: 'Kid Flavor Apothecary (Strawberry & Bubblegum)',
-    architectureSubtitle: 'Dye-Free Delicious Polish Selection',
-    description: 'Children pick their favorite organic, chemical dye-free polishing paste flavors including fresh Alphonso mango, strawberry, sweet vanilla, and cool mint.',
-    clinicalImpact: 'Gives the child active choice and transforms clinical polishing into a fun sensory treat.',
-    badge: 'Flavor Bar',
-    iconName: 'Sparkles',
-    image: 'https://images.unsplash.com/photo-1559563458-527698bf5295?auto=format&fit=crop&q=80&w=900'
-  },
-  {
-    id: 'reward-atelier',
-    name: 'Bravery Coin & Educational Gift Station',
-    architectureSubtitle: 'Positive Reinforcement Ritual',
-    description: 'After every completed visit, each young patient receives a shiny gold bravery coin to unlock our gift tower featuring puzzles, storybooks, dental superhero badges, and STEM toys.',
-    clinicalImpact: 'Creates a positive psychological anchor making kids excited for their 6-month checkups.',
-    badge: 'Bravery Rewards',
-    iconName: 'Award',
-    image: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&q=80&w=900'
+    id: 'no-drill-fill',
+    name: '60-Second No-Drill Cavity Stop',
+    price: '₹1,200',
+    idealFor: 'Early / Moderate Decay',
+    description: 'Needle-free, drill-free brush-on Silver Diamine Fluoride treatment that arrests cavities instantly.',
+    inclusions: [
+      'Painless brush-on mineral application',
+      '100% needle-free & injection-free',
+      'Kills cavity bacteria in 60 seconds',
+      'Protects natural tooth structure',
+      'Follow-up mineral check included'
+    ]
   }
 ];
 
 export const PARENT_TESTIMONIALS: KidReview[] = [
   {
     id: 'rev-1',
-    author: 'Dr. Ananya Sengupta, MD (Pediatrician)',
-    profile: 'Consultant Pediatrician, Manipal Hospital • Mother of Vivaan (4)',
-    location: 'Indiranagar, Bengaluru',
+    parentName: 'Dr. Ananya Sengupta',
+    parentRole: 'Pediatrician & Mother to Vivaan (4)',
+    childInfo: 'Vivaan (Age 4)',
+    date: 'August 2026',
+    treatment: 'Warm Mist Cleaning & First Checkup',
     rating: 5,
-    highlight: 'A benchmark in Indian pediatric dentistry.',
-    quote: 'As a pediatrician, I am extremely particular about child psychology and sterilization standards. Vivaan had a painful experience at a local dental clinic and developed severe fear. Dr. Maya Nair and her team treated him with such patience. The Swiss Airflow cleaning and cartoon ceiling screen made his entire visit effortless. He left smiling!',
-    clinicalContext: 'Swiss Airflow & Fluoride Varnish'
+    imageUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80',
+    quote: 'As a pediatrician, I am very picky about medical environments. Little Orbit is pure magic. Vivaan was terrified after a bad clinic visit elsewhere. Here, with Barnaby the golden retriever and Bluey on the ceiling screen, he did not shed a single tear!'
   },
   {
     id: 'rev-2',
-    author: 'Rajesh & Pooja Kulkarni',
-    profile: 'Tech Leaders & Parents of Shanaya (3) and Kabir (7)',
-    location: 'Koramangala, Bengaluru',
+    parentName: 'Pooja & Rajesh Kulkarni',
+    parentRole: 'Parents of Shanaya (3) and Kabir (7)',
+    childInfo: 'Shanaya (3) & Kabir (7)',
+    date: 'July 2026',
+    treatment: 'No-Drill SDF Cavity Arrest',
     rating: 5,
-    highlight: 'Saved my daughter from general anesthesia.',
-    quote: 'Our 3-year-old had early cavities and another hospital recommended general anesthesia and multiple stainless steel caps. Dr. Maya treated her using non-invasive Silver Diamine Fluoride (SDF) and SMART fillings without a single needle or tear. Truly world-class pediatric care in Bangalore.',
-    clinicalContext: 'No-Drill SDF & Milk Tooth Care'
+    imageUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+    quote: 'Another clinic wanted to put Shanaya under general anesthesia for two tiny cavities. Dr. Maya used SDF liquid in under a minute without needles or drilling. Fast, completely painless, and cost a fraction of hospital quotes.'
   },
   {
     id: 'rev-3',
-    author: 'Col. Vikramaditya Rathore',
-    profile: 'Father of Aryan (9) and Meera (13)',
-    location: 'Defence Colony, New Delhi',
+    parentName: 'Col. Vikramaditya Rathore',
+    parentRole: 'Father of Aryan (9) and Meera (13)',
+    childInfo: 'Aryan (9) & Meera (13)',
+    date: 'June 2026',
+    treatment: 'Habit Trainer & Airway Care',
     rating: 5,
-    highlight: 'Flawless hygiene, transparency, and warmth.',
-    quote: 'From WhatsApp slot booking to itemized UPI billing and digital OPG x-rays, everything is exceptionally smooth. The clinic adheres to top-grade NABH sterilization. Aryan stopped his thumb-sucking habit within three weeks of using their trainer appliance.',
-    clinicalContext: 'Habit Appliance & Interceptive Orthodontics'
+    imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
+    quote: 'The level of hygiene and warmth in this clinic is exceptional. From WhatsApp booking to clear itemized bills for insurance, everything was smooth. Aryan stopped mouth breathing within a month with his Myobrace trainer.'
   }
 ];
 
-export const PARENT_FAQS: KidFAQ[] = [
+export const FAQ_ITEMS: KidFAQ[] = [
   {
     id: 'faq-1',
-    question: 'What makes Little Orbit different from general family dental clinics in India?',
-    answer: 'Little Orbit is a dedicated pediatric specialty center led by MDS Pedodontists (specialists with 3 years of exclusive master’s training in child dentistry). Unlike general clinics, our entire infrastructure is designed for children: private soundproof suites, cartoon ceiling displays, pain-free Swiss Airflow cleaning, no-drill cavity arrest (SDF), and a strict zero-separation policy where parents stay alongside their child throughout.',
-    category: 'First Appointments'
+    question: 'How is Little Orbit different from adult or family dental clinics?',
+    answer: 'We are exclusively pediatric specialists (MDS Pedodontists) who treat only children. Our entire clinic is child-sized and sensory-friendly: private soundproof suites, 4K ceiling cartoon screens, painless Swiss warm-water cleaning, needle-free cavity arrest, and parents always sit right beside their child.',
+    category: 'First Visits',
+    clinicalNote: '100% of our clinical faculty hold post-graduate MDS degrees in Pediatric Dentistry.'
   },
   {
     id: 'faq-2',
-    question: 'How do you manage uncooperative, anxious, or neurodiverse children?',
-    answer: 'We follow the evidence-based Tell-Show-Do behavioral technique along with positive reinforcement. We never force or hold down a child. For anxious children, we offer private soundproof rooms, dimmable lights, favorite cartoon streaming, Barnaby the therapy dog, and conscious nitrous oxide relaxation if needed.',
-    category: 'Sensory & Comfort'
+    question: 'What if my child is very scared or cries during medical visits?',
+    answer: 'We never rush, force, or physically restrain a child. We use gentle "Tell-Show-Do" behavioral techniques, dim circadian lighting, favorite cartoons on ceiling screens, and Barnaby our certified therapy dog. Over 99% of anxious children become completely calm within minutes.',
+    category: 'Sensory Comfort',
+    clinicalNote: 'Parents can hold infants and toddlers in their laps during all examinations.'
   },
   {
     id: 'faq-3',
-    question: 'Can early milk tooth cavities be treated without drilling or injections?',
-    answer: 'Yes! For early and moderate decay in primary teeth, we use US FDA-approved Silver Diamine Fluoride (SDF). This antimicrobial liquid stops cavity progression in 60 seconds without drills, needles, or numbness, and is sealed with a tooth-friendly glass ionomer barrier.',
-    category: 'Biological Treatments'
+    question: 'Can cavities really be treated without drilling or injections?',
+    answer: 'Yes! For most early and moderate decay in children, we use Silver Diamine Fluoride (SDF) and bioactive remineralizing agents. We apply a gentle liquid with a tiny brush that stops active decay in 60 seconds with zero needles, zero drilling, and zero pain.',
+    category: 'Gentle Procedures',
+    clinicalNote: 'SDF is FDA-approved and endorsed by the American Academy of Pediatric Dentistry.'
   },
   {
     id: 'faq-4',
-    question: 'What is included in the First Consultation & Oral Health Checkup (₹750)?',
-    answer: 'The first visit includes a comprehensive examination by an MDS Pediatric Dentist, digital low-dose radiograph (if clinically necessary), bite and airway development screening, dietary counseling for cavity prevention, a custom oral hygiene kit, and a bravery coin gift for your child.',
-    category: 'First Appointments'
+    question: 'What age should my child have their first dental visit?',
+    answer: 'The Indian Society of Pedodontics and Preventive Dentistry (ISPPD) and American Academy of Pediatric Dentistry (AAPD) recommend bringing your child by their first birthday or when their first tooth appears. Early visits prevent tooth decay and screen for healthy airway development.',
+    category: 'First Visits',
+    clinicalNote: 'Our First Visit checkup is just ₹750 and includes an unhurried 45-minute consultation.'
   },
   {
     id: 'faq-5',
-    question: 'Do you accept UPI, Health Insurance reimbursement, and No-Cost EMI?',
-    answer: 'Yes. We accept all major payment methods including UPI (Google Pay, PhonePe, Paytm), credit/debit cards, and 0% No-Cost EMI on major credit cards and Bajaj Finserv Health. We provide comprehensive itemized digital bills, diagnosis certificates, and claim forms for cashless/reimbursement insurance under OPD dental covers (MediBuddy, Star Health, HDFC ERGO, Bajaj Allianz, Care Health, etc.).',
-    category: 'Insurance & Payments'
+    question: 'Do you accept health insurance and provide itemized bills?',
+    answer: 'Yes! We provide complete itemized invoices, clinical treatment summaries, and diagnostic photo records required for OPD dental insurance reimbursement (Star Health, MediBuddy, HDFC ERGO, ICICI Lombard, etc.). We also offer 0% interest EMI options.',
+    category: 'Billing & Insurance',
+    clinicalNote: 'Our concierge desk will assist you directly with insurance paperwork on the same day.'
   }
 ];
 
 export const CLINIC_CONTACT = {
-  name: 'Little Orbit Children’s Dental Clinic & Multispecialty Hospital',
-  descriptor: 'Premier Pediatric Dentistry, Airway Growth & Laser Dental Center',
-  leadDentist: 'Dr. Maya Nair, BDS, MDS (Pedodontics & Preventive Dentistry)',
-  leadCredentials: 'Gold Medalist, Fellow ISPPD, Former Senior Resident AIIMS New Delhi',
-  surgicalDirector: 'Dr. Leo Mathew, BDS, MDS (Maxillofacial & Pediatric Sedation)',
+  name: 'Little Orbit Pediatric Dental Atelier',
+  descriptor: 'Gentle, Painless & Fear-Free Pediatric Dentistry (Ages 0–18)',
+  leadDentist: 'Dr. Maya Nair, BDS, MDS (AIIMS New Delhi)',
+  leadCredentials: 'Gold Medalist & Pediatric Dental Specialist',
+  surgicalDirector: 'Dr. Leo Mathew, BDS, MDS (Manipal)',
   address: 'No. 412, 100 Feet Road, HAL 2nd Stage, Indiranagar',
-  landmark: 'Near Indiranagar Metro Station / Opposite Toit',
+  landmark: 'Near Indiranagar Metro / Opposite Toit',
   city: 'Bengaluru, Karnataka 560038',
-  otherCities: 'Bengaluru • New Delhi (South Ext) • Mumbai (Bandra) • Hyderabad (Jubilee Hills)',
   phone: '+91 80 4123 4567',
   mobileLine: '+91 98800 12345',
   whatsapp: '+91 98800 12345',
@@ -361,11 +414,70 @@ export const CLINIC_CONTACT = {
     { days: 'Sunday Specialist Clinic', time: '09:30 AM – 02:30 PM' }
   ],
   emergencyHelpline: {
-    title: 'Emergency Pediatric Trauma Helpline',
-    availability: '24/7 On-Call Doctor Support',
+    title: '24/7 Pediatric Dental Trauma Helpline',
+    availability: 'On-Call Pediatric Doctor Support',
     phone: '+91 98800 12345',
-    note: 'Priority emergency triage for dental trauma, knocked-out teeth, facial swelling & severe toothache.'
+    note: 'Immediate priority help for dental trauma, knocked-out teeth, and severe pain.'
   },
-  parking: 'Free Dedicated Basement Parking & Stroller Lift Access.'
+  parking: 'Complimentary Valet Parking & Easy Stroller Access'
 };
 
+export const SENSORY_AMENITIES = [
+  {
+    id: 'barnaby-dog',
+    name: 'Barnaby Bedside Therapy Dog',
+    architectureSubtitle: 'Calming Golden Retriever',
+    description: 'Hypoallergenic, medical-certified therapy dog offering soothing deep-pressure cuddles.',
+    clinicalImpact: 'Reduces cortisol and anxiety within 2 minutes.',
+    badge: 'Child Favorite',
+    imageUrl: 'https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: 'ceiling-tv',
+    name: 'Ceiling 4K Netflix Cinema',
+    architectureSubtitle: 'Overhead Entertainment',
+    description: 'Kids watch Bluey, Peppa Pig, or Marvel with child-sized wireless headphones.',
+    clinicalImpact: 'Keeps attention engaged throughout care.',
+    badge: '4K Cinema',
+    imageUrl: 'https://images.unsplash.com/photo-1629909615184-74f495363b67?auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: 'private-suite',
+    name: 'Soundproof Family Suites',
+    architectureSubtitle: 'Acoustically Isolated',
+    description: 'Private quiet rooms with dim circadian lighting and no scary tools in sight.',
+    clinicalImpact: 'Eliminates waiting-room and adjacent-chair anxiety.',
+    badge: 'Zero Separation',
+    imageUrl: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80'
+  }
+];
+
+export const HIGHLIGHTS = [
+  'Zero-Drill Cavity Fill (SDF in 60s)',
+  'Swiss 37°C Warm-Mist Water Cleanings',
+  'AIIMS New Delhi Gold Medalist Faculty',
+  'Barnaby the Certified Bedside Therapy Dog'
+];
+
+export const COMPARISON_ITEMS = [
+  {
+    feature: 'Cavity Treatment',
+    traditional: 'High-speed drills, friction heat, sharp needles, numb lips for hours',
+    littleOrbit: '60-second Silver Diamine Fluoride (SDF) liquid. No drills, no needles, zero downtime.'
+  },
+  {
+    feature: 'Teeth Cleaning',
+    traditional: 'Sharp metal scrapers and cold water shock causing gum sensitivity and tears',
+    littleOrbit: 'Swiss Airflow 37°C warm water mist with sweet erythritol powder. Feels like a spa.'
+  },
+  {
+    feature: 'Parent Presence',
+    traditional: 'Parents often asked to wait outside while children are treated alone',
+    littleOrbit: 'Zero separation policy. Parents sit in plush armchairs or hold toddlers in lap throughout.'
+  },
+  {
+    feature: 'Sensory Comfort',
+    traditional: 'Blinding fluorescent lights, loud drilling noises, clinical white coats',
+    littleOrbit: 'Barnaby the therapy dog, 4K ceiling cartoons with headphones, and dim circadian light.'
+  }
+];

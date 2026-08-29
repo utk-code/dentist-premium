@@ -1,79 +1,95 @@
 import React from 'react';
 import { PARENT_TESTIMONIALS } from '../../data/kidsDentalData';
-import { Star, ShieldCheck, Quote, Building, Sparkles, Heart } from 'lucide-react';
+import { Star, CheckCircle2, ShieldCheck } from 'lucide-react';
 
 export const KidsReviews: React.FC = () => {
   return (
-    <section className="py-16 sm:py-24 bg-gradient-to-b from-white via-sky-50/20 to-white border-b border-sky-100 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-8">
+    <section className="py-16 sm:py-24 bg-white border-b border-slate-200/80">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-sky-50 text-sky-800 text-xs font-semibold border border-sky-200/80 mb-3">
-              <Quote className="w-3.5 h-3.5 text-sky-600" />
-              <span>Parent Stories & Reviews</span>
-            </div>
-            <h2 className="font-outfit text-3xl sm:text-4xl lg:text-5xl text-slate-900 font-extrabold tracking-tight">
-              Loved by kids, trusted by <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-teal-600">physicians & parents</span>.
-            </h2>
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-amber-50 text-amber-900 text-xs font-semibold border border-amber-200/80">
+            <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-500" />
+            <span>5.0 Star Rating (520+ Bengaluru Parents)</span>
           </div>
-          <div className="md:text-right">
-            <div className="flex items-center md:justify-end gap-1 text-amber-400 mb-1">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-5 h-5 fill-amber-400" />
-              ))}
-            </div>
-            <p className="text-xs sm:text-sm font-bold text-slate-700">
-              5.0 Star Rating Across 520+ Bengaluru Families
-            </p>
-          </div>
+
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+            Hear from Bengaluru parents who transformed their children’s dental visits
+          </h2>
+
+          <p className="text-sm sm:text-base text-slate-600 font-normal leading-relaxed">
+            Read real experiences from mothers, pediatricians, and fathers across Indiranagar, Koramangala, and HSR Layout.
+          </p>
         </div>
 
-        {/* Testimonials 3-Card Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Testimonials Grid with Real Parent Photos */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {PARENT_TESTIMONIALS.map((review) => (
             <div
               key={review.id}
-              className="bg-white rounded-3xl border border-sky-100 p-7 sm:p-8 shadow-sm hover:shadow-md hover:border-sky-300 flex flex-col justify-between transition-all duration-300 relative"
+              className="bg-slate-50/70 rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-sm flex flex-col justify-between hover:border-teal-400 hover:shadow-md transition-all"
             >
-              <div className="space-y-4">
-                <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-                  <div className="flex items-center gap-1 text-amber-400">
-                    {[...Array(review.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-amber-400" />
+              <div>
+                {/* Rating & Date */}
+                <div className="flex items-center justify-between pb-3 border-b border-slate-200/80">
+                  <div className="flex items-center gap-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
                     ))}
                   </div>
-                  <span className="text-[11px] font-semibold text-teal-800 bg-teal-50 px-2.5 py-1 rounded-full border border-teal-200/60">
-                    {review.clinicalContext}
-                  </span>
+                  <span className="text-[11px] text-slate-400 font-medium">{review.date}</span>
                 </div>
 
-                <p className="font-outfit text-lg sm:text-xl font-bold text-slate-900 leading-snug">
-                  "{review.highlight}"
+                {/* Review Text */}
+                <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-normal mt-4">
+                  "{review.quote}"
                 </p>
 
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                  {review.quote}
-                </p>
+                {/* Specific Highlight Tag */}
+                <div className="mt-4 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-teal-50 text-teal-800 text-[11px] font-semibold border border-teal-100">
+                  <CheckCircle2 className="w-3 h-3 text-teal-600 shrink-0" />
+                  <span>{review.treatment}</span>
+                </div>
               </div>
 
-              <div className="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between">
+              {/* Reviewer Details with Real Parent/Family Photograph */}
+              <div className="pt-4 mt-6 border-t border-slate-200/80 flex items-center gap-3">
+                <img
+                  src={review.imageUrl}
+                  alt={review.parentName}
+                  referrerPolicy="no-referrer"
+                  className="w-11 h-11 rounded-full object-cover border-2 border-teal-200 shrink-0 shadow-xs"
+                />
                 <div>
-                  <h4 className="text-sm font-bold text-slate-900">{review.author}</h4>
-                  <p className="text-xs text-slate-500 font-normal mt-0.5">{review.profile}</p>
-                  <p className="text-xs text-sky-600 font-medium mt-0.5">{review.location}</p>
-                </div>
-                <div className="w-9 h-9 rounded-full bg-teal-50 border border-teal-200 flex items-center justify-center text-teal-600 shrink-0">
-                  <Heart className="w-4 h-4 text-rose-500 fill-rose-50" />
+                  <h4 className="font-bold text-slate-900 text-xs sm:text-sm">{review.parentName}</h4>
+                  <p className="text-slate-500 text-[11px] leading-tight">{review.parentRole}</p>
                 </div>
               </div>
+
             </div>
           ))}
+        </div>
+
+        {/* Google Reviews Trust Bar */}
+        <div className="mt-12 p-5 bg-[#FBFBF9] rounded-2xl border border-slate-200 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-600">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-xl bg-white border border-slate-200 flex items-center justify-center font-bold text-teal-700 shadow-sm">
+              G
+            </div>
+            <div>
+              <span className="font-bold text-slate-900">4.98 / 5.0 Average Rating on Google Reviews</span>
+              <p className="text-slate-500 text-[11px]">Based on verified visits in Indiranagar, Bengaluru</p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 font-semibold text-teal-700">
+            <ShieldCheck className="w-4 h-4 text-teal-600" />
+            <span>100% Real, Verified Patient Stories</span>
+          </div>
         </div>
 
       </div>
     </section>
   );
 };
-

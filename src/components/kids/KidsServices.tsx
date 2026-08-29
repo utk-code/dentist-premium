@@ -1,138 +1,152 @@
 import React, { useState } from 'react';
-import { KID_SERVICES, KidService } from '../../data/kidsDentalData';
-import { Sparkles, Check, ArrowRight, ShieldCheck, Waves, Info, Heart } from 'lucide-react';
+import { SERVICES_DATA } from '../../data/kidsDentalData';
+import { Sparkles, Check, ArrowRight, ShieldCheck, Clock } from 'lucide-react';
 
 interface KidsServicesProps {
-  onOpenBooking: (serviceName: string) => void;
+  onOpenBooking: (serviceName?: string) => void;
 }
 
 export const KidsServices: React.FC<KidsServicesProps> = ({ onOpenBooking }) => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [selectedCategory, setSelectedCategory] = useState<'all' | 'preventive' | 'restorative' | 'orthopedic'>('all');
 
-  const categories = ['All', 'Preventative Biomimetics', 'Minimally Invasive Dentistry', 'Specialized Infant Surgery', 'Facial Growth & Airway'];
-
-  const filteredServices = selectedCategory === 'All'
-    ? KID_SERVICES
-    : KID_SERVICES.filter(s => s.category === selectedCategory);
+  const filteredServices = SERVICES_DATA.filter(service => {
+    if (selectedCategory === 'all') return true;
+    if (selectedCategory === 'preventive') return service.category.toLowerCase().includes('prevent') || service.category.toLowerCase().includes('comfort');
+    if (selectedCategory === 'restorative') return service.category.toLowerCase().includes('restorative') || service.category.toLowerCase().includes('laser') || service.category.toLowerCase().includes('painless');
+    if (selectedCategory === 'orthopedic') return service.category.toLowerCase().includes('ortho') || service.category.toLowerCase().includes('airway');
+    return true;
+  });
 
   return (
-    <section id="services" className="py-16 sm:py-24 bg-gradient-to-b from-white via-teal-50/25 to-white border-b border-sky-100 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-8">
+    <section id="services" className="py-16 sm:py-24 bg-white border-b border-slate-200/80">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-sky-50 text-sky-800 text-xs font-semibold border border-sky-200/80 mb-3">
-              <Sparkles className="w-3.5 h-3.5 text-sky-600" />
-              <span>Gentle Clinical Disciplines</span>
-            </div>
-            <h2 className="font-outfit text-3xl sm:text-4xl lg:text-5xl text-slate-900 font-extrabold tracking-tight">
-              Biomimetic, painless & <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-sky-600">laser-guided</span> pediatric care.
-            </h2>
+        <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-50 text-teal-800 text-xs font-semibold border border-teal-200/70">
+            <Sparkles className="w-3.5 h-3.5 text-teal-600" />
+            <span>Gentle & Needle-Free Treatments</span>
           </div>
-          <p className="text-sm sm:text-base text-slate-600 max-w-sm leading-relaxed">
-            By shifting from mechanical scraping and aggressive drilling to warm-water mists, Silver Diamine Fluoride, and CO2 lasers, we preserve your child's natural tooth structure.
+
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+            Advanced pediatric dentistry, engineered for zero tears
+          </h2>
+
+          <p className="text-sm sm:text-base text-slate-600 font-normal leading-relaxed">
+            Every procedure at Little Orbit utilizes minimally-invasive technology designed to protect natural tooth structure and eliminate clinical fear.
           </p>
         </div>
 
-        {/* Category Filter */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-3 mb-8 scrollbar-none">
-          {categories.map((cat) => (
+        {/* Filter Chips */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
+          {[
+            { id: 'all', label: 'All Gentle Services' },
+            { id: 'preventive', label: 'Cleanings & Protection' },
+            { id: 'restorative', label: 'No-Drill Fillings & Lasers' },
+            { id: 'orthopedic', label: 'Airway & Gentle Expansion' }
+          ].map((cat) => (
             <button
-              key={cat}
-              onClick={() => setSelectedCategory(cat)}
-              className={`px-4 py-2 rounded-xl text-xs font-bold tracking-wide whitespace-nowrap transition-all ${
-                selectedCategory === cat
-                  ? 'bg-sky-600 text-white shadow-sm shadow-sky-200'
-                  : 'bg-white text-slate-700 hover:bg-sky-50 border border-slate-200'
+              key={cat.id}
+              onClick={() => setSelectedCategory(cat.id as any)}
+              className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                selectedCategory === cat.id
+                  ? 'bg-teal-600 text-white shadow-sm'
+                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900'
               }`}
             >
-              {cat}
+              {cat.label}
             </button>
           ))}
         </div>
 
-        {/* Service Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        {/* Services Grid with Visual Photography Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredServices.map((service) => (
             <div
               key={service.id}
-              className="bg-white rounded-3xl border border-sky-100 shadow-sm hover:shadow-md hover:border-sky-300 transition-all duration-300 overflow-hidden flex flex-col group"
+              className="bg-white rounded-3xl overflow-hidden border border-slate-200 hover:border-teal-400 hover:shadow-xl transition-all flex flex-col justify-between group shadow-sm"
             >
-              {/* Image Frame */}
-              <div className="relative h-52 overflow-hidden bg-slate-100">
-                <img
-                  src={service.image}
-                  alt={service.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/15 to-transparent" />
-                
-                {/* Age Scope Tag */}
-                <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-md text-slate-800 text-[11px] font-bold px-3 py-1 rounded-full border border-sky-100 shadow-xs">
-                  {service.ageScope}
+              <div>
+                {/* Photo header for service */}
+                <div className="relative h-44 w-full overflow-hidden bg-slate-100">
+                  <img
+                    src={service.imageUrl}
+                    alt={service.name}
+                    referrerPolicy="no-referrer"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute top-3 left-3">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-teal-800 bg-white/95 backdrop-blur-xs px-2.5 py-1 rounded-full border border-teal-100 shadow-xs">
+                      {service.category}
+                    </span>
+                  </div>
+                  <div className="absolute bottom-2 right-2 px-2 py-0.5 rounded-md bg-slate-900/80 backdrop-blur-xs text-[10px] font-medium text-white flex items-center gap-1">
+                    <Clock className="w-3 h-3" />
+                    <span>{service.recoveryTime}</span>
+                  </div>
                 </div>
 
-                <div className="absolute bottom-3 left-3 right-3">
-                  <span className="text-[10px] uppercase font-bold tracking-wider text-amber-300 block">
-                    {service.category}
-                  </span>
-                  <h3 className="font-outfit text-lg font-bold text-white leading-snug mt-0.5">
-                    {service.title}
+                <div className="p-5 sm:p-6 space-y-3">
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900 group-hover:text-teal-700 transition-colors">
+                    {service.name}
                   </h3>
-                </div>
-              </div>
 
-              {/* Card Body */}
-              <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
-                
-                <div className="space-y-3">
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                    {service.clinicalSummary}
+                  <p className="text-xs text-slate-600 font-normal leading-relaxed">
+                    {service.tagline}
                   </p>
 
-                  <div className="p-3.5 bg-teal-50/70 rounded-2xl border border-teal-100/90">
-                    <div className="text-[11px] font-bold uppercase tracking-wider text-teal-800 flex items-center gap-1.5 mb-1">
-                      <ShieldCheck className="w-3.5 h-3.5 text-teal-600" />
-                      <span>The Little Orbit Advantage</span>
-                    </div>
-                    <p className="text-xs text-slate-700 leading-snug font-medium">
-                      {service.biomimeticAdvantage}
-                    </p>
-                  </div>
-
-                  <div className="space-y-1.5 pt-1">
-                    {service.protocols.slice(0, 3).map((item, idx) => (
-                      <div key={idx} className="flex items-start gap-2 text-xs text-slate-600 font-medium">
+                  {/* Benefits List */}
+                  <div className="space-y-1.5 pt-2">
+                    {service.benefits.slice(0, 3).map((benefit, i) => (
+                      <div key={i} className="flex items-start gap-2 text-xs text-slate-700">
                         <Check className="w-3.5 h-3.5 text-teal-600 shrink-0 mt-0.5" />
-                        <span>{item}</span>
+                        <span>{benefit}</span>
                       </div>
                     ))}
                   </div>
                 </div>
+              </div>
 
-                {/* Card Footer Action */}
-                <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-                  <button
-                    onClick={() => onOpenBooking(service.title)}
-                    className="text-xs font-bold text-sky-700 hover:text-sky-800 transition-colors flex items-center gap-1.5 group-hover:translate-x-0.5"
-                  >
-                    <span>Book For Child</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-sky-600 group-hover:translate-x-1 transition-transform" />
-                  </button>
-                  <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
-                    Fear-Free
-                  </span>
+              {/* Bottom CTA */}
+              <div className="px-5 pb-5 sm:px-6 sm:pb-6 pt-3 border-t border-slate-100 flex items-center justify-between">
+                <div className="text-xs">
+                  <span className="text-slate-400 block text-[10px]">Suitability:</span>
+                  <span className="font-semibold text-slate-800 text-[11px]">{service.ageRange}</span>
                 </div>
 
+                <button
+                  onClick={() => onOpenBooking(`Treatment: ${service.name}`)}
+                  className="px-3.5 py-1.5 rounded-xl bg-teal-50 hover:bg-teal-600 text-teal-700 hover:text-white font-semibold text-xs border border-teal-200 hover:border-teal-600 transition-all flex items-center gap-1.5 cursor-pointer"
+                >
+                  <span>Book Visit</span>
+                  <ArrowRight className="w-3 h-3" />
+                </button>
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Reassurance Banner */}
+        <div className="mt-12 p-6 rounded-3xl bg-gradient-to-r from-teal-50 via-white to-amber-50 border border-teal-200/80 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-2xl bg-teal-600 text-white flex items-center justify-center font-bold shrink-0 shadow-sm">
+              <ShieldCheck className="w-5 h-5" />
+            </div>
+            <div>
+              <h4 className="font-bold text-slate-900 text-sm">Our Conservative Care Promise</h4>
+              <p className="text-xs text-slate-600">We never drill when natural remineralization can heal the tooth. Full transparency with parents always.</p>
+            </div>
+          </div>
+
+          <button
+            onClick={() => onOpenBooking('Conservative Care Evaluation')}
+            className="w-full sm:w-auto px-5 py-3 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs shadow-sm transition-all whitespace-nowrap cursor-pointer active:scale-95"
+          >
+            Schedule Consultation (₹750)
+          </button>
         </div>
 
       </div>
     </section>
   );
 };
-

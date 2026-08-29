@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { KidsNavbar } from './components/kids/KidsNavbar';
 import { KidsHero } from './components/kids/KidsHero';
+import { KidsGraphicComparison } from './components/kids/KidsGraphicComparison';
 import { KidsAgeJourney } from './components/kids/KidsAgeJourney';
 import { KidsServices } from './components/kids/KidsServices';
 import { KidsSensoryAmenities } from './components/kids/KidsSensoryAmenities';
@@ -29,7 +30,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen w-full max-w-full overflow-x-hidden flex flex-col bg-[#F8FAFC] text-slate-900 font-sans selection:bg-sky-200 selection:text-sky-900">
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden flex flex-col bg-[#FBFBF9] text-slate-800 font-sans selection:bg-teal-100 selection:text-teal-900">
       
       {/* High-End Architectural Navigation */}
       <KidsNavbar
@@ -43,6 +44,11 @@ export default function App() {
         <KidsHero
           onOpenBooking={handleOpenBooking}
           onNavigateSection={handleNavigateSection}
+        />
+
+        {/* Graphic Comparison Matrix (Old vs Little Orbit Atelier) */}
+        <KidsGraphicComparison
+          onOpenBooking={() => handleOpenBooking('Comprehensive First Pediatric Visit')}
         />
 
         {/* 4-Stage Milestone Developmental Pathways */}

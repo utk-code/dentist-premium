@@ -1,182 +1,170 @@
 import React, { useState } from 'react';
-import { AGE_TRACKS, AgeTrack } from '../../data/kidsDentalData';
-import { Calendar, CheckCircle2, ChevronRight, Sparkles, BookOpen, Clock, Shield, Baby, Smile, GraduationCap, Sparkle, Heart } from 'lucide-react';
+import { AGE_MILESTONES } from '../../data/kidsDentalData';
+import { Baby, ArrowRight, CheckCircle2, Heart } from 'lucide-react';
 
 interface KidsAgeJourneyProps {
-  onOpenBooking: (stageTitle: string) => void;
+  onOpenBooking: (stageReason?: string) => void;
 }
 
 export const KidsAgeJourney: React.FC<KidsAgeJourneyProps> = ({ onOpenBooking }) => {
-  const [selectedTrackId, setSelectedTrackId] = useState<string>('infant');
+  const [selectedStageId, setSelectedStageId] = useState<string>(AGE_MILESTONES[0].id);
 
-  const activeTrack: AgeTrack = AGE_TRACKS.find(t => t.id === selectedTrackId) || AGE_TRACKS[0];
-
-  const renderStageIcon = (id: string, isSelected: boolean) => {
-    switch (id) {
-      case 'infant':
-        return <Baby className={`w-4 h-4 ${isSelected ? 'text-sky-600' : 'text-slate-500'}`} />;
-      case 'toddler':
-        return <Smile className={`w-4 h-4 ${isSelected ? 'text-teal-600' : 'text-slate-500'}`} />;
-      case 'school':
-        return <GraduationCap className={`w-4 h-4 ${isSelected ? 'text-indigo-600' : 'text-slate-500'}`} />;
-      case 'adolescent':
-        return <Sparkles className={`w-4 h-4 ${isSelected ? 'text-amber-600' : 'text-slate-500'}`} />;
-      default:
-        return <Heart className={`w-4 h-4 ${isSelected ? 'text-sky-600' : 'text-slate-500'}`} />;
-    }
-  };
+  const currentStage = AGE_MILESTONES.find(s => s.id === selectedStageId) || AGE_MILESTONES[0];
 
   return (
-    <section id="age-journey" className="py-16 sm:py-24 bg-gradient-to-b from-white via-sky-50/50 to-white border-b border-sky-100 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-8">
+    <section id="age-journey" className="py-16 sm:py-24 bg-[#FBFBF9] border-b border-slate-200/80">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-teal-50 text-teal-800 text-xs font-semibold border border-teal-200/80 mb-3">
-              <Shield className="w-3.5 h-3.5 text-teal-600" />
-              <span>Personalized Age Milestones</span>
-            </div>
-            <h2 className="font-outfit text-3xl sm:text-4xl lg:text-5xl text-slate-900 font-extrabold tracking-tight">
-              Gentle care tailored from <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-teal-600">first tooth</span> to confident teen smiles.
-            </h2>
+        <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-50 text-teal-800 text-xs font-semibold border border-teal-200/70">
+            <Baby className="w-3.5 h-3.5 text-teal-600" />
+            <span>Developmental Milestones (0 – 18 Years)</span>
           </div>
-          <p className="text-sm sm:text-base text-slate-600 max-w-sm leading-relaxed">
-            Every child’s mouth changes rapidly. We provide customized care protocols designed specifically for their emotional comfort and developmental stage.
+
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+            Tailored dental care for every stage of your child’s growth
+          </h2>
+
+          <p className="text-sm sm:text-base text-slate-600 font-normal leading-relaxed">
+            A child's oral health needs evolve rapidly from the first baby tooth to adolescent jaw development. Select your child's age group below.
           </p>
         </div>
 
-        {/* Tab Navigation Strip */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3.5 mb-8">
-          {AGE_TRACKS.map((track) => {
-            const isSelected = track.id === selectedTrackId;
+        {/* 4 Age Tabs with Visual Thumbnails */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-8">
+          {AGE_MILESTONES.map((stage) => {
+            const isSelected = stage.id === selectedStageId;
             return (
               <button
-                key={track.id}
-                onClick={() => setSelectedTrackId(track.id)}
-                className={`text-left p-3.5 sm:p-5 rounded-2xl border-2 transition-all duration-200 relative ${
+                key={stage.id}
+                onClick={() => setSelectedStageId(stage.id)}
+                className={`text-left p-3.5 sm:p-4 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between overflow-hidden relative group ${
                   isSelected
-                    ? 'bg-white text-slate-900 border-sky-500 shadow-md shadow-sky-100 ring-2 ring-sky-100'
-                    : 'bg-white/80 text-slate-700 border-slate-200/90 hover:border-sky-300 hover:bg-sky-50/30 shadow-2xs'
+                    ? 'bg-white border-teal-600 shadow-md ring-2 ring-teal-600/20'
+                    : 'bg-white/70 border-slate-200 hover:border-slate-300 hover:bg-white'
                 }`}
               >
-                <div className="flex items-center justify-between gap-1 mb-2">
-                  <div className="flex items-center gap-1.5 sm:gap-2">
-                    <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-sky-50 flex items-center justify-center shrink-0">
-                      {renderStageIcon(track.id, isSelected)}
-                    </div>
-                    <span className={`text-[10px] sm:text-[11px] font-bold uppercase tracking-wider ${
-                      isSelected ? 'text-sky-600' : 'text-slate-500'
+                <div className="flex items-center gap-3">
+                  <img
+                    src={stage.imageUrl}
+                    alt={stage.title}
+                    referrerPolicy="no-referrer"
+                    className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl object-cover shrink-0 border border-slate-200"
+                  />
+                  <div>
+                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md inline-block ${
+                      isSelected ? 'bg-teal-100 text-teal-800' : 'bg-slate-100 text-slate-600'
                     }`}>
-                      {track.code}
+                      {stage.range}
                     </span>
+                    <div className={`font-bold text-xs sm:text-sm mt-1 leading-snug ${
+                      isSelected ? 'text-slate-900' : 'text-slate-700'
+                    }`}>
+                      {stage.title}
+                    </div>
                   </div>
-                  <span className={`text-[10px] sm:text-[11px] font-bold px-2 py-0.5 rounded-full shrink-0 ${
-                    isSelected ? 'bg-sky-100 text-sky-800' : 'bg-slate-100 text-slate-600'
-                  }`}>
-                    {track.ageRange}
-                  </span>
-                </div>
-                <div className="font-outfit font-bold text-xs sm:text-sm tracking-tight leading-snug text-slate-900">
-                  {track.stageName}
                 </div>
               </button>
             );
           })}
         </div>
 
-        {/* Selected Stage Detail Panel */}
-        <div className="bg-white rounded-3xl border border-sky-100 shadow-lg shadow-sky-900/5 overflow-hidden p-5 sm:p-10 lg:p-12">
+        {/* Selected Stage Detail Showcase Card */}
+        <div className="bg-white rounded-3xl p-6 sm:p-8 lg:p-10 border border-slate-200 shadow-xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-            
-            {/* Left Narrative Column */}
-            <div className="lg:col-span-7 space-y-6">
-              
-              <div className="flex items-center gap-3">
-                <span className="px-3 py-1 bg-sky-100 text-sky-800 text-xs font-bold uppercase tracking-wider rounded-lg">
-                  {activeTrack.code} • {activeTrack.ageRange}
+          {/* Left Details */}
+          <div className="lg:col-span-7 space-y-6">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-bold text-teal-700 bg-teal-50 px-3 py-1 rounded-full border border-teal-200">
+                  {currentStage.range} • Stage {currentStage.id.replace('stage-', '')}
                 </span>
+                <span className="text-xs text-slate-400 font-medium hidden sm:inline">Recommended by AAPD & ISPPD</span>
               </div>
 
-              <h3 className="font-outfit text-2xl sm:text-3xl text-slate-900 font-extrabold leading-tight">
-                {activeTrack.stageName}
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">
+                {currentStage.title}: {currentStage.headline}
               </h3>
 
-              <div className="p-4 rounded-2xl bg-sky-50/70 border border-sky-100 space-y-1.5">
-                <div className="text-xs font-bold uppercase tracking-wider text-sky-800">
-                  Developmental Focus
-                </div>
-                <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
-                  {activeTrack.developmentalFocus}
-                </p>
-              </div>
-
-              <div className="space-y-3">
-                <div className="text-xs font-bold uppercase tracking-wider text-slate-900 flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-amber-500" />
-                  What We Focus On During Your Visit:
-                </div>
-                <div className="space-y-2.5">
-                  {activeTrack.examinationProtocols.map((item, idx) => (
-                    <div key={idx} className="flex items-start gap-3 text-xs sm:text-sm text-slate-700 font-medium">
-                      <CheckCircle2 className="w-4 h-4 text-teal-600 shrink-0 mt-0.5" />
-                      <span>{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Action Button */}
-              <div className="pt-3 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                <button
-                  onClick={() => onOpenBooking(`Milestone Consultation: ${activeTrack.stageName} (${activeTrack.ageRange})`)}
-                  className="bg-gradient-to-r from-sky-600 to-teal-600 hover:from-sky-700 hover:to-teal-700 text-white text-xs font-bold uppercase tracking-widest px-6 py-3.5 rounded-xl shadow-sm shadow-sky-200 flex items-center justify-center gap-2"
-                >
-                  <Calendar className="w-3.5 h-3.5 text-amber-200" />
-                  <span>Book {activeTrack.stageName} Visit</span>
-                </button>
-                <div className="text-xs text-slate-500 flex items-center justify-center gap-1.5 font-medium">
-                  <Clock className="w-3.5 h-3.5 text-teal-600" />
-                  <span>Unhurried 45-Minute Visit</span>
-                </div>
-              </div>
-
+              <p className="text-sm text-slate-600 font-normal leading-relaxed mt-2">
+                {currentStage.description}
+              </p>
             </div>
 
-            {/* Right Doctor Clinical Advisory Box */}
-            <div className="lg:col-span-5 space-y-5">
-              
-              <div className="p-6 rounded-2xl bg-gradient-to-br from-sky-900 to-teal-950 text-white shadow-md space-y-4">
-                <div className="flex items-center gap-2 text-amber-300 text-xs font-bold uppercase tracking-wider">
-                  <BookOpen className="w-4 h-4 text-amber-300" />
-                  Pediatric Specialist Insight
-                </div>
-                <blockquote className="font-fraunces text-base sm:text-lg text-sky-50 italic leading-relaxed">
-                  "{activeTrack.pediatricianNote}"
-                </blockquote>
-                <div className="pt-2 border-t border-sky-800/80 text-xs text-sky-200 flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-sky-700 flex items-center justify-center font-bold text-white text-xs">
-                    MN
-                  </div>
-                  <div>
-                    <p className="font-bold text-white">Dr. Maya Nair, BDS, MDS (AIIMS New Delhi)</p>
-                    <p className="text-[11px] text-sky-300">Gold Medalist • Fellow ISPPD • Chief Pedodontist</p>
-                  </div>
-                </div>
-              </div>
+            {/* Focus Clinical Interventions */}
+            <div className="space-y-3">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800">
+                Key Pediatric Focus Areas for this Stage:
+              </h4>
 
-              {/* Gentle Promise Summary */}
-              <div className="p-5 rounded-2xl bg-teal-50/70 border border-teal-100 space-y-2">
-                <div className="text-xs font-bold uppercase tracking-wider text-teal-900 flex items-center gap-1.5">
-                  <Smile className="w-4 h-4 text-teal-700" />
-                  <span>Our Promise For This Age Group</span>
-                </div>
-                <p className="text-xs text-slate-600 leading-relaxed font-normal">
-                  {activeTrack.clinicalScope}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {currentStage.protocols.map((protocol, i) => (
+                  <div key={i} className="p-3.5 rounded-xl bg-slate-50 border border-slate-100 flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-teal-600 shrink-0 mt-0.5" />
+                    <div>
+                      <h5 className="font-bold text-slate-900 text-xs">{protocol.name}</h5>
+                      <p className="text-[11px] text-slate-500 leading-snug mt-0.5">{protocol.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Booking CTA for this stage */}
+            <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
+              <button
+                onClick={() => onOpenBooking(`Stage: ${currentStage.title} (${currentStage.range})`)}
+                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs shadow-md shadow-teal-600/20 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+              >
+                <span>Book Stage {currentStage.id.replace('stage-', '')} Visit (₹750)</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+
+              <div className="text-xs text-slate-500">
+                Unhurried 45-minute private suite slot with parent present.
+              </div>
+            </div>
+
+          </div>
+
+          {/* Right Sensory Guidance & Photography Card */}
+          <div className="lg:col-span-5 space-y-4">
+            
+            {/* Real Photograph of Child/Family at this developmental stage */}
+            <div className="relative rounded-2xl overflow-hidden h-52 sm:h-60 border border-slate-200 shadow-sm bg-slate-100">
+              <img
+                src={currentStage.imageUrl}
+                alt={currentStage.title}
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
+              <div className="absolute bottom-3 left-3 right-3 text-white">
+                <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-teal-600/90 text-white">
+                  {currentStage.range}
+                </span>
+                <p className="text-xs font-semibold text-white mt-1">
+                  {currentStage.title} Care Protocol
                 </p>
               </div>
+            </div>
 
+            {/* Parent Tip Box */}
+            <div className="bg-gradient-to-br from-teal-50/70 to-amber-50/70 p-5 rounded-2xl border border-teal-100 space-y-3">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-xl bg-teal-600 text-white flex items-center justify-center font-bold shrink-0 shadow-xs">
+                  <Heart className="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-slate-900 text-xs">Parent Guidance</h4>
+                  <p className="text-[11px] text-slate-500">Dr. Maya Nair (AIIMS Gold Medalist)</p>
+                </div>
+              </div>
+
+              <p className="text-xs text-slate-700 leading-relaxed font-normal bg-white/80 p-3 rounded-xl border border-teal-200/50">
+                "{currentStage.milestones[0]} This developmental window is critical for proper jaw arches and stress-free dental habits."
+              </p>
             </div>
 
           </div>
@@ -187,5 +175,3 @@ export const KidsAgeJourney: React.FC<KidsAgeJourneyProps> = ({ onOpenBooking })
     </section>
   );
 };
-
-

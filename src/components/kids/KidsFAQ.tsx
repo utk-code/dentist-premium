@@ -1,149 +1,96 @@
 import React, { useState } from 'react';
-import { PARENT_FAQS, KidFAQ, CLINIC_CONTACT } from '../../data/kidsDentalData';
-import { ChevronDown, HelpCircle, Phone, MessageSquare, Shield, Sparkles } from 'lucide-react';
+import { FAQ_ITEMS, CLINIC_CONTACT } from '../../data/kidsDentalData';
+import { ChevronDown, HelpCircle, MessageCircle, ArrowRight, ShieldCheck, Phone } from 'lucide-react';
 
 interface KidsFAQProps {
-  onOpenBooking: (topic?: string) => void;
+  onOpenBooking: () => void;
 }
 
 export const KidsFAQ: React.FC<KidsFAQProps> = ({ onOpenBooking }) => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [openIdx, setOpenIdx] = useState<number | null>(0);
 
-  const categories = ['All', 'First Appointments', 'Sensory & Comfort', 'Biological Treatments', 'Concierge & Insurance'];
-
-  const filteredFaqs = selectedCategory === 'All'
-    ? PARENT_FAQS
-    : PARENT_FAQS.filter(f => f.category === selectedCategory);
-
-  const toggleAccordion = (idx: number) => {
-    setOpenIndex(openIndex === idx ? null : idx);
+  const toggleFAQ = (idx: number) => {
+    setOpenIdx(openIdx === idx ? null : idx);
   };
 
   return (
-    <section id="faq" className="py-16 sm:py-24 bg-gradient-to-b from-white via-sky-50/20 to-white border-b border-sky-100 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-8">
+    <section id="faq" className="py-16 sm:py-24 bg-[#FBFBF9] border-b border-slate-200/80">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-sky-50 text-sky-800 text-xs font-semibold border border-sky-200/80 mb-3">
-              <HelpCircle className="w-3.5 h-3.5 text-sky-600" />
-              <span>Parent Questions Answered</span>
-            </div>
-            <h2 className="font-outfit text-3xl sm:text-4xl lg:text-5xl text-slate-900 font-extrabold tracking-tight">
-              Everything you need to know for a <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-teal-600">happy visit</span>.
-            </h2>
+        {/* Section Header */}
+        <div className="text-center mb-12 space-y-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-50 text-teal-800 text-xs font-semibold border border-teal-200/70">
+            <HelpCircle className="w-3.5 h-3.5 text-teal-600" />
+            <span>Frequently Asked Questions by Parents</span>
           </div>
-          <p className="text-sm sm:text-base text-slate-600 max-w-sm leading-relaxed">
-            Have questions regarding our biological approach, no-drill fillings, or sensory accommodations? Explore our clinical guidance below.
+
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+            Everything you need to know about your child’s visit
+          </h2>
+
+          <p className="text-sm sm:text-base text-slate-600 font-normal leading-relaxed">
+            Have a specific concern about fear, procedures, or insurance? Find direct answers from our pediatric faculty below.
           </p>
         </div>
 
-        {/* Category Filter */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-3 mb-8 scrollbar-none">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => {
-                setSelectedCategory(cat);
-                setOpenIndex(0);
-              }}
-              className={`px-4 py-2.5 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
-                selectedCategory === cat
-                  ? 'bg-sky-600 text-white shadow-sm ring-2 ring-sky-200'
-                  : 'bg-white text-slate-700 hover:bg-sky-50 border border-sky-100'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+        {/* Accordion List */}
+        <div className="space-y-3.5">
+          {FAQ_ITEMS.map((faq, idx) => {
+            const isOpen = openIdx === idx;
+            return (
+              <div
+                key={faq.id}
+                className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden transition-all"
+              >
+                <button
+                  onClick={() => toggleFAQ(idx)}
+                  className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-slate-50/50 transition-colors"
+                >
+                  <span className="font-bold text-slate-900 text-sm sm:text-base pr-2">
+                    {faq.question}
+                  </span>
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-transform duration-200 ${
+                    isOpen ? 'bg-teal-50 text-teal-700 rotate-180' : 'bg-slate-100 text-slate-500'
+                  }`}>
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </button>
+
+                {isOpen && (
+                  <div className="px-5 pb-6 sm:px-6 text-xs sm:text-sm text-slate-600 font-normal leading-relaxed border-t border-slate-100 pt-4 animate-in fade-in duration-200">
+                    <p>{faq.answer}</p>
+                    {faq.clinicalNote && (
+                      <div className="mt-3 p-3 rounded-xl bg-teal-50/80 border border-teal-100 text-teal-900 text-xs font-medium flex items-center gap-2">
+                        <ShieldCheck className="w-4 h-4 text-teal-600 shrink-0" />
+                        <span><strong>Clinical Note:</strong> {faq.clinicalNote}</span>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
 
-        {/* FAQ Accordion Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          
-          {/* FAQ Accordion List */}
-          <div className="lg:col-span-8 space-y-3.5">
-            {filteredFaqs.map((faq, idx) => {
-              const isOpen = openIndex === idx;
-              return (
-                <div
-                  key={faq.id}
-                  className="bg-white rounded-2xl border border-sky-100 overflow-hidden transition-all shadow-xs hover:border-sky-300"
-                >
-                  <button
-                    onClick={() => toggleAccordion(idx)}
-                    className="w-full text-left p-5 sm:p-6 flex items-center justify-between gap-4 hover:bg-sky-50/50 transition-colors"
-                  >
-                    <div className="flex items-center gap-3">
-                      <span className="text-[11px] font-semibold text-teal-800 bg-teal-50 px-2.5 py-1 rounded-full border border-teal-200/60 shrink-0">
-                        {faq.category}
-                      </span>
-                      <span className="font-bold text-sm sm:text-base text-slate-900 tracking-tight">
-                        {faq.question}
-                      </span>
-                    </div>
-                    <ChevronDown
-                      className={`w-5 h-5 text-slate-400 shrink-0 transition-transform duration-200 ${
-                        isOpen ? 'rotate-180 text-sky-600' : ''
-                      }`}
-                    />
-                  </button>
-
-                  {isOpen && (
-                    <div className="px-5 pb-6 pt-1 sm:px-6 text-xs sm:text-sm text-slate-600 font-normal leading-relaxed border-t border-sky-50 bg-sky-50/30">
-                      {faq.answer}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
+        {/* Direct WhatsApp Callout */}
+        <div className="mt-12 p-6 rounded-3xl bg-white border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+          <div>
+            <h4 className="font-bold text-slate-900 text-sm">Have a unique clinical question?</h4>
+            <p className="text-xs text-slate-500 mt-0.5">Chat directly with Dr. Maya Nair’s team on WhatsApp for advice.</p>
           </div>
 
-          {/* Right Side Concierge Contact Box */}
-          <div className="lg:col-span-4 bg-white rounded-3xl border border-sky-100 p-6 sm:p-8 shadow-sm space-y-5">
-            <div className="space-y-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-teal-600 block">
-                Direct Clinical Concierge
-              </span>
-              <h3 className="font-outfit text-xl font-bold text-slate-900 leading-snug">
-                Have a unique sensory or medical question?
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                Our pediatric clinical concierge works directly with Dr. Maya Nair and Dr. Leo Mathew to answer developmental or airway questions before scheduling.
-              </p>
-            </div>
-
-            <div className="space-y-3 pt-2">
-              <a
-                href={CLINIC_CONTACT.whatsappLink}
-                target="_blank"
-                rel="noreferrer"
-                className="w-full bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold uppercase tracking-wider py-3.5 rounded-xl shadow-xs flex items-center justify-center gap-2 transition-all"
-              >
-                <MessageSquare className="w-4 h-4 text-white" />
-                <span>Chat On WhatsApp</span>
-              </a>
-
-              <a
-                href={`tel:${CLINIC_CONTACT.phone}`}
-                className="w-full bg-sky-50 hover:bg-sky-100 text-sky-800 text-xs font-bold uppercase tracking-wider py-3.5 rounded-xl border border-sky-200 transition-all flex items-center justify-center gap-2"
-              >
-                <Phone className="w-4 h-4 text-sky-600" />
-                <span>Call Concierge: {CLINIC_CONTACT.phone}</span>
-              </a>
-            </div>
-
-            <div className="pt-3 border-t border-slate-100 text-xs text-slate-500 font-medium text-center">
-              Available Mon – Sun, 9:00 AM – 8:00 PM IST
-            </div>
-          </div>
-
+          <a
+            href={CLINIC_CONTACT.whatsappLink}
+            target="_blank"
+            rel="noreferrer"
+            className="px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-sm transition-all flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer"
+          >
+            <MessageCircle className="w-4 h-4" />
+            <span>WhatsApp Us Now</span>
+          </a>
         </div>
 
       </div>
     </section>
   );
 };
-

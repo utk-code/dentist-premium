@@ -1,178 +1,333 @@
-import React from 'react';
-import { ShieldCheck, CheckCircle2, ChevronRight, MessageCircle, Calendar, Sparkles, Heart, Award, Wind, Stethoscope } from 'lucide-react';
-import { CLINIC_CONTACT } from '../../data/kidsDentalData';
+import React, { useState } from 'react';
+import { ShieldCheck, Star, Sparkles, Heart, ArrowRight, Calendar, MessageCircle, Smile, Award, CheckCircle2 } from 'lucide-react';
+import { CLINIC_CONTACT, DOCTORS } from '../../data/kidsDentalData';
 
 interface KidsHeroProps {
-  onOpenBooking: (initialReason?: string) => void;
+  onOpenBooking: () => void;
   onNavigateSection: (sectionId: string) => void;
 }
 
 export const KidsHero: React.FC<KidsHeroProps> = ({ onOpenBooking, onNavigateSection }) => {
+  const [activeTab, setActiveTab] = useState<'painless' | 'suites' | 'faculty'>('painless');
+
   return (
-    <section id="hero" className="relative bg-gradient-to-b from-sky-50/60 via-white to-slate-50/50 text-slate-900 pt-8 pb-14 sm:pt-14 sm:pb-20 overflow-hidden border-b border-slate-100 w-full max-w-full">
+    <section id="hero" className="relative bg-gradient-to-b from-teal-50/60 via-[#FBFBF9] to-[#FBFBF9] pt-8 sm:pt-14 pb-14 sm:pb-20 overflow-hidden border-b border-slate-200/60">
       
-      {/* Soft Ambient Background Aura */}
-      <div className="absolute top-0 right-0 w-80 sm:w-[540px] h-80 sm:h-[540px] bg-sky-200/25 rounded-full blur-3xl pointer-events-none -mr-16 -mt-16" />
-      <div className="absolute bottom-0 left-0 w-72 sm:w-[480px] h-72 sm:h-[480px] bg-teal-200/20 rounded-full blur-3xl pointer-events-none -ml-16 -mb-16" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 relative z-10 w-full">
+      {/* Decorative Warm Ambient Glows (Lightweight CSS) */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-gradient-to-r from-teal-100/40 via-amber-100/30 to-blue-100/40 blur-3xl pointer-events-none -z-10 rounded-full" />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Main Grid: Headline & Visuals */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-          
-          {/* Left Column: Typography & Intent Actions */}
-          <div className="lg:col-span-7 space-y-6">
-            
-            {/* Single Refined Eyebrow */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-100/80 text-sky-900 text-xs font-semibold border border-sky-200/70">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Bengaluru's Pediatric Dental & Airway Sanctuary (Ages 0–18)</span>
-            </div>
+        {/* Top Trust Ribbon */}
+        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-6 sm:mb-8 text-center">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-teal-200/80 shadow-sm text-teal-800 text-xs font-semibold">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span>Bengaluru’s #1 Fear-Free Pediatric Dental Clinic</span>
+          </div>
 
-            {/* Clear, High-Contrast Headline */}
-            <h1 className="font-outfit text-3xl sm:text-5xl lg:text-[54px] text-slate-950 tracking-tight font-extrabold leading-[1.12]">
-              Where little smiles feel <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-600 via-teal-600 to-emerald-600">safe, loved</span> and excited to visit.
+          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-amber-900 text-xs font-semibold">
+            <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-500" />
+            <span>5.0 / 5.0 Rating (520+ Indiranagar Families)</span>
+          </div>
+        </div>
+
+        {/* Hero Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+          
+          {/* Left Column: Reassuring Headlines & Parent Peace-of-Mind */}
+          <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
+            
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.15]">
+              Gentle, pain-free dental visits your child will <span className="text-teal-600 underline decoration-teal-300 decoration-wavy decoration-2">actually look forward to</span>.
             </h1>
 
-            {/* Readable, Uncrowded Subtitle */}
-            <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl font-normal">
-              We have eliminated dental fear for children. Experience Swiss warm-water micro-mist cleaning, zero-drill cavity arrest (SDF), private sensory suites with ceiling cartoon screens, and cuddles from Barnaby, our certified therapy dog.
+            <p className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0">
+              No scary drills, no harsh needles, no white-coat trauma. Experience Bengaluru’s gentlest pediatric care with <strong className="text-slate-800 font-semibold">AIIMS faculty</strong>, Swiss warm-mist technology, 4K ceiling cartoons, and <strong className="text-slate-800 font-semibold">Barnaby, our certified therapy dog</strong>.
             </p>
 
-            {/* Symmetrical CTA Button Row */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
+            {/* Quick 3-Point Guarantee for Anxious Parents */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1 text-left">
+              <div className="p-3.5 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-start gap-3">
+                <div className="w-8 h-8 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center shrink-0 font-bold">
+                  <CheckCircle2 className="w-4 h-4 text-teal-600" />
+                </div>
+                <div>
+                  <h4 className="text-xs font-bold text-slate-900">Zero-Drill Cavity Fill</h4>
+                  <p className="text-[11px] text-slate-500 leading-snug mt-0.5">Stops decay in 60 seconds with mineral silver mist.</p>
+                </div>
+              </div>
+
+              <div className="p-3.5 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-start gap-3">
+                <div className="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 font-bold">
+                  <CheckCircle2 className="w-4 h-4 text-blue-600" />
+                </div>
+                <div>
+                  <h4 className="text-xs font-bold text-slate-900">Parents Beside Child</h4>
+                  <p className="text-[11px] text-slate-500 leading-snug mt-0.5">Private family suite. Hold your child's hand throughout.</p>
+                </div>
+              </div>
+
+              <div className="p-3.5 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-start gap-3">
+                <div className="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0 font-bold">
+                  <CheckCircle2 className="w-4 h-4 text-amber-600" />
+                </div>
+                <div>
+                  <h4 className="text-xs font-bold text-slate-900">Therapy Dog & Cartoons</h4>
+                  <p className="text-[11px] text-slate-500 leading-snug mt-0.5">Barnaby snuggles bedside while kids watch Netflix.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Main Action Buttons */}
+            <div className="pt-3 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5">
               <button
-                onClick={() => onOpenBooking('Comprehensive First Pediatric Visit & Airway Screening')}
-                className="bg-gradient-to-r from-sky-600 via-teal-600 to-sky-700 hover:from-sky-700 hover:to-teal-700 text-white px-7 py-3.5 rounded-2xl font-outfit font-semibold text-sm transition-all shadow-md shadow-sky-500/20 hover:shadow-lg active:scale-95 flex items-center justify-center gap-2 group w-full sm:w-auto"
+                onClick={onOpenBooking}
+                className="w-full sm:w-auto px-7 py-4 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm shadow-lg shadow-teal-600/25 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
               >
-                <Calendar className="w-4 h-4 text-sky-100" />
-                <span>Book Child's First Visit</span>
-                <ChevronRight className="w-4 h-4 text-sky-200 group-hover:translate-x-0.5 transition-transform" />
+                <Calendar className="w-4 h-4" />
+                <span>Book Child’s Visit (₹750)</span>
+                <ArrowRight className="w-4 h-4" />
               </button>
 
               <a
                 href={CLINIC_CONTACT.whatsappLink}
                 target="_blank"
                 rel="noreferrer"
-                className="bg-emerald-50 hover:bg-emerald-100 text-emerald-800 px-6 py-3.5 rounded-2xl font-semibold text-sm border border-emerald-200/80 transition-all flex items-center justify-center gap-2 shadow-2xs w-full sm:w-auto"
+                className="w-full sm:w-auto px-6 py-4 rounded-xl bg-white hover:bg-slate-50 text-slate-800 font-semibold text-sm border border-slate-200 shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
                 <MessageCircle className="w-4 h-4 text-emerald-600" />
-                <span>Chat on WhatsApp</span>
+                <span>Ask a Doctor on WhatsApp</span>
               </a>
             </div>
 
-            {/* Trust Assurances - Clean Linear Formatting */}
-            <div className="pt-2 border-t border-slate-200/70 flex flex-wrap items-center gap-4 sm:gap-6 text-xs sm:text-[13px] text-slate-600 font-medium">
-              <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-teal-600 shrink-0" />
-                <span>Zero Separation (Parents Stay)</span>
+            {/* Micro Reassurance Footer with verified family social proof */}
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs text-slate-500 pt-2 font-medium">
+              <div className="flex items-center -space-x-2">
+                <img
+                  src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&h=120&q=80"
+                  alt="Parent patient"
+                  referrerPolicy="no-referrer"
+                  className="w-7 h-7 rounded-full border-2 border-white object-cover shadow-xs"
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&h=120&q=80"
+                  alt="Parent patient"
+                  referrerPolicy="no-referrer"
+                  className="w-7 h-7 rounded-full border-2 border-white object-cover shadow-xs"
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=120&h=120&q=80"
+                  alt="Child patient"
+                  referrerPolicy="no-referrer"
+                  className="w-7 h-7 rounded-full border-2 border-white object-cover shadow-xs"
+                />
               </div>
-              <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-teal-600 shrink-0" />
-                <span>Therapy Canine Barnaby</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-teal-600 shrink-0" />
-                <span>AIIMS & Manipal Pedodontists</span>
-              </div>
+              <span className="text-slate-700 font-semibold">520+ happy families this year</span>
+              <span>•</span>
+              <span className="flex items-center gap-1.5 text-slate-600">
+                <ShieldCheck className="w-4 h-4 text-teal-600" />
+                <span>Zero Wait Guarantee</span>
+              </span>
+              <span>•</span>
+              <span className="text-slate-600">
+                Opp. 100 Ft Rd, Indiranagar
+              </span>
             </div>
 
           </div>
 
-          {/* Right Column: Editorial Visual & Single Reassurance Badge */}
-          <div className="lg:col-span-5 relative w-full">
-            
-            {/* Main Editorial Image */}
-            <div className="relative rounded-3xl overflow-hidden border-4 border-white shadow-xl shadow-slate-900/10 bg-white w-full">
-              <img
-                src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=1200"
-                alt="Pediatric dentist examining smiling child in modern sunlit operatory"
-                className="w-full h-[360px] sm:h-[460px] object-cover"
-                referrerPolicy="no-referrer"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/15 to-transparent" />
-
-              {/* In-Image Suite Indicator */}
-              <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-slate-100 shadow-sm flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping shrink-0" />
-                <p className="text-xs font-semibold text-slate-800">
-                  Safari Suite 01 • Soundproof & Fear-Free
-                </p>
-              </div>
-
-              {/* Bottom Reassurance Card */}
-              <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md p-4 rounded-2xl border border-slate-100 text-slate-800 shadow-md">
-                <div className="flex items-center justify-between pb-2.5 border-b border-slate-100">
+          {/* Right Column: High Quality Photography Card & Interactive Clinic Experience */}
+          <div className="lg:col-span-5">
+            <div className="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden space-y-4 relative">
+              
+              {/* Main Photo Banner with Doctor & Child */}
+              <div className="relative h-56 sm:h-64 w-full overflow-hidden bg-slate-100">
+                <img
+                  src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=900&q=80"
+                  alt="Pediatric dentist with smiling child in modern clinic"
+                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent" />
+                
+                {/* Overlay Badge */}
+                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white">
                   <div className="flex items-center gap-2">
-                    <ShieldCheck className="w-4 h-4 text-teal-600 shrink-0" />
-                    <span className="text-xs font-bold text-slate-900">
-                      The Little Orbit Promise
+                    <span className="px-2.5 py-1 rounded-lg bg-teal-600/90 backdrop-blur-md text-[11px] font-bold text-white tracking-wide">
+                      Private Family Suites
+                    </span>
+                    <span className="text-xs font-medium text-slate-200">
+                      Zero Separation Policy
                     </span>
                   </div>
-                  <span className="text-[11px] font-semibold text-sky-700 bg-sky-50 px-2.5 py-0.5 rounded-full">
-                    100% Fear-Free Standard
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-3 gap-2 pt-2.5 text-center">
-                  <div className="bg-sky-50/80 p-2 rounded-xl">
-                    <div className="font-outfit font-extrabold text-base sm:text-lg text-sky-800">0</div>
-                    <div className="text-[10px] text-slate-600 font-medium">Needles for SDF</div>
-                  </div>
-                  <div className="bg-teal-50/80 p-2 rounded-xl">
-                    <div className="font-outfit font-extrabold text-base sm:text-lg text-teal-800">100%</div>
-                    <div className="text-[10px] text-slate-600 font-medium">Parent Beside</div>
-                  </div>
-                  <div className="bg-amber-50/80 p-2 rounded-xl">
-                    <div className="font-outfit font-extrabold text-base sm:text-lg text-amber-800">15 min</div>
-                    <div className="text-[10px] text-slate-600 font-medium">Swiss Airflow</div>
+                  <div className="flex items-center gap-1 text-amber-300 text-xs font-bold bg-slate-900/60 backdrop-blur-md px-2 py-1 rounded-md">
+                    <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+                    <span>5.0</span>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Subtle Barnaby Floating Tag */}
-            <div className="hidden sm:flex absolute -bottom-4 -left-4 bg-white p-3 rounded-2xl border border-slate-100 shadow-lg items-center gap-3 z-20 max-w-[260px]">
-              <div className="w-9 h-9 rounded-xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center shrink-0">
-                <Heart className="w-4 h-4 fill-amber-200" />
+              <div className="px-5 pb-5 sm:px-6 sm:pb-6 space-y-4">
+                
+                {/* Tab Selector for Quick Visual Exploration */}
+                <div className="grid grid-cols-3 gap-1.5 p-1 bg-slate-100/80 rounded-xl text-xs font-semibold text-slate-600">
+                  <button
+                    onClick={() => setActiveTab('painless')}
+                    className={`py-2 rounded-lg transition-all cursor-pointer ${
+                      activeTab === 'painless'
+                        ? 'bg-white text-teal-800 shadow-sm'
+                        : 'hover:text-slate-900'
+                    }`}
+                  >
+                    Needle-Free
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('suites')}
+                    className={`py-2 rounded-lg transition-all cursor-pointer ${
+                      activeTab === 'suites'
+                        ? 'bg-white text-teal-800 shadow-sm'
+                        : 'hover:text-slate-900'
+                    }`}
+                  >
+                    Sensory Suite
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('faculty')}
+                    className={`py-2 rounded-lg transition-all cursor-pointer ${
+                      activeTab === 'faculty'
+                        ? 'bg-white text-teal-800 shadow-sm'
+                        : 'hover:text-slate-900'
+                    }`}
+                  >
+                    AIIMS Doctors
+                  </button>
+                </div>
+
+                {/* Tab Content 1: Needle-Free & Painless */}
+                {activeTab === 'painless' && (
+                  <div className="space-y-3 animate-in fade-in duration-200">
+                    <div className="p-3.5 rounded-2xl bg-gradient-to-br from-teal-50 to-emerald-50 border border-teal-100 flex items-start gap-3">
+                      <img
+                        src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=240&h=240&q=80"
+                        alt="Swiss warm mist cleaning"
+                        referrerPolicy="no-referrer"
+                        className="w-16 h-16 rounded-xl object-cover shrink-0 border border-teal-200"
+                      />
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-1.5 text-teal-900 font-bold text-xs">
+                          <Sparkles className="w-3.5 h-3.5 text-teal-600" />
+                          <span>Swiss 37°C Warm Water Mist</span>
+                        </div>
+                        <p className="text-[11px] text-slate-600 leading-snug">
+                          Replaces cold scraping and loud tools with soothing body-temp micro-mist infused with sweet erythritol.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2 text-xs">
+                      <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                        <div className="font-bold text-slate-800 text-[11px]">SDF 60-Sec Fill</div>
+                        <div className="text-[10px] text-slate-500 mt-0.5">No drilling or numbing shots needed.</div>
+                      </div>
+                      <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                        <div className="font-bold text-slate-800 text-[11px]">Laser Soft-Tissue</div>
+                        <div className="text-[10px] text-slate-500 mt-0.5">Instant infant tongue-tie in 90 sec.</div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Tab Content 2: Sensory Suite & Barnaby */}
+                {activeTab === 'suites' && (
+                  <div className="space-y-3 animate-in fade-in duration-200">
+                    <div className="p-3.5 rounded-2xl bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-100 flex items-start gap-3">
+                      <img
+                        src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=240&h=240&q=80"
+                        alt="Barnaby the therapy dog"
+                        referrerPolicy="no-referrer"
+                        className="w-16 h-16 rounded-xl object-cover shrink-0 border border-amber-200"
+                      />
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-1.5 text-amber-900 font-bold text-xs">
+                          <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500" />
+                          <span>Barnaby • Therapy Dog</span>
+                        </div>
+                        <p className="text-[11px] text-slate-600 leading-snug">
+                          Gentle Golden Retriever rests bedside, lowering cortisol and turning anxiety into happy smiles.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2 text-xs">
+                      <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                        <div className="font-bold text-slate-800 text-[11px]">Ceiling 4K Cinema</div>
+                        <div className="text-[10px] text-slate-500 mt-0.5">Bluey, Peppa Pig & Marvel shows.</div>
+                      </div>
+                      <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                        <div className="font-bold text-slate-800 text-[11px]">Circadian Light</div>
+                        <div className="text-[10px] text-slate-500 mt-0.5">No blinding white glare.</div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Tab Content 3: Faculty */}
+                {activeTab === 'faculty' && (
+                  <div className="space-y-3 animate-in fade-in duration-200">
+                    <div className="p-3.5 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100 flex items-start gap-3">
+                      <img
+                        src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=240&h=240&q=80"
+                        alt="Dr. Maya Nair"
+                        referrerPolicy="no-referrer"
+                        className="w-16 h-16 rounded-xl object-cover shrink-0 border border-blue-200"
+                      />
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-1.5 text-blue-900 font-bold text-xs">
+                          <Award className="w-3.5 h-3.5 text-blue-600" />
+                          <span>AIIMS & Manipal Faculty</span>
+                        </div>
+                        <p className="text-[11px] text-slate-600 leading-snug">
+                          Led by Dr. Maya Nair (MDS AIIMS Gold Medalist) and Dr. Leo Mathew (MDS Manipal, PALS certified).
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2 text-xs">
+                      <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                        <div className="font-bold text-slate-800 text-[11px]">Dr. Maya Nair</div>
+                        <div className="text-[10px] text-slate-500 mt-0.5">Gold Medalist • Airway Growth</div>
+                      </div>
+                      <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                        <div className="font-bold text-slate-800 text-[11px]">Dr. Leo Mathew</div>
+                        <div className="text-[10px] text-slate-500 mt-0.5">Laser Fellow • Trauma Care</div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Consultation Pricing Banner */}
+                <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+                  <div>
+                    <span className="text-slate-500 font-normal">First Visit Consultation:</span>
+                    <div className="text-sm font-bold text-slate-900">₹750 <span className="text-[11px] font-normal text-slate-500">(45 Min + Airway Audit)</span></div>
+                  </div>
+                  <button
+                    onClick={onOpenBooking}
+                    className="px-4 py-2 rounded-lg bg-teal-600 hover:bg-teal-700 text-white font-semibold text-xs shadow-sm transition-colors cursor-pointer"
+                  >
+                    Reserve Suite
+                  </button>
+                </div>
+
               </div>
-              <div className="text-xs">
-                <span className="font-bold text-slate-900 block">Meet Barnaby</span>
-                <span className="text-[11px] text-slate-500">Certified Bedside Therapy Dog</span>
-              </div>
+
             </div>
-
           </div>
 
-        </div>
-
-        {/* 4 Core Pillars Strip - Clear Horizontal Hierarchy */}
-        <div className="mt-12 sm:mt-16 pt-8 border-t border-slate-200/80 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-          <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-100 shadow-2xs hover:border-sky-200 transition-colors">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-sky-600 block">Standard 01</span>
-            <h3 className="text-sm font-bold text-slate-900 mt-1">Biomimetic Enamel Care</h3>
-            <p className="text-xs text-slate-500 mt-1 leading-relaxed">Preserving primary milk teeth without aggressive drilling or needles using Swiss remineralization.</p>
-          </div>
-          <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-100 shadow-2xs hover:border-teal-200 transition-colors">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-teal-600 block">Standard 02</span>
-            <h3 className="text-sm font-bold text-slate-900 mt-1">Airway & Jaw Growth</h3>
-            <p className="text-xs text-slate-500 mt-1 leading-relaxed">Early interceptive screening for mouth breathing, tongue ties, speech articulation, and dental arches.</p>
-          </div>
-          <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-100 shadow-2xs hover:border-amber-200 transition-colors">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-amber-600 block">Standard 03</span>
-            <h3 className="text-sm font-bold text-slate-900 mt-1">Sensory Comfort First</h3>
-            <p className="text-xs text-slate-500 mt-1 leading-relaxed">Private soundproof suites, ceiling cartoon displays, wireless noise-canceling headphones & therapy canine.</p>
-          </div>
-          <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-100 shadow-2xs hover:border-indigo-200 transition-colors">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-600 block">Standard 04</span>
-            <h3 className="text-sm font-bold text-slate-900 mt-1">Unhurried Care</h3>
-            <p className="text-xs text-slate-500 mt-1 leading-relaxed">Dedicated 45-minute slots with unhurried guidance for both parents and child using Tell-Show-Do methods.</p>
-          </div>
         </div>
 
       </div>
+
     </section>
   );
 };
-
-
