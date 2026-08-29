@@ -1,0 +1,6 @@
+{
+  "name": "Little Orbit Pediatric Dental",
+  "description": "A high-ticket luxury pediatric dental institute & facial growth atelier featuring biomimetic care, private acoustic suites, and concierge hospitality.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
