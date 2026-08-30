@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { ShieldCheck, Star, Sparkles, Heart, ArrowRight, Calendar, MessageCircle, Smile, Award, CheckCircle2 } from 'lucide-react';
 import { CLINIC_CONTACT, DOCTORS } from '../../data/kidsDentalData';
 
@@ -42,7 +42,7 @@ export const KidsHero: React.FC<KidsHeroProps> = ({ onOpenBooking, onNavigateSec
             </h1>
 
             <p className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0">
-              No scary drills, no harsh needles, no white-coat trauma. Experience Bengaluru’s gentlest pediatric care with <strong className="text-slate-800 font-semibold">AIIMS faculty</strong>, Swiss warm-mist technology, 4K ceiling cartoons, and <strong className="text-slate-800 font-semibold">Barnaby, our certified therapy dog</strong>.
+              No scary drills, no harsh needles. Bengaluru’s gentlest care — <strong className="text-slate-800 font-semibold">AIIMS faculty</strong>, warm-mist tech, 4K cartoons, and <strong className="text-slate-800 font-semibold">Barnaby the therapy dog</strong>.
             </p>
 
             {/* Quick 3-Point Guarantee for Anxious Parents */}

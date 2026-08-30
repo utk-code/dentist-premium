@@ -19,12 +19,8 @@ export const KidsParentGuidance: React.FC<KidsParentGuidanceProps> = ({ onOpenBo
           </div>
 
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
-            Clear, upfront pricing with zero surprise charges
+            Clear, upfront pricing with zero surprises
           </h2>
-
-          <p className="text-sm sm:text-base text-slate-600 font-normal leading-relaxed">
-            We provide itemized written treatment estimates before any care begins, complete with insurance reimbursement documentation and interest-free EMI options.
-          </p>
         </div>
 
         {/* Pricing Cards Grid */}

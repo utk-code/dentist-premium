@@ -137,11 +137,12 @@ export const KidsNavbar: React.FC<KidsNavbarProps> = ({ onOpenBooking, onNavigat
           </button>
 
           {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 cursor-pointer shrink-0"
-            aria-label="Toggle navigation menu"
-          >
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={mobileMenuOpen}
+          className="lg:hidden p-2.5 rounded-xl hover:bg-slate-100 transition-colors text-slate-700 cursor-pointer"
+        >
             {mobileMenuOpen ? <X className="w-4 h-4 sm:w-5 sm:h-5" /> : <Menu className="w-4 h-4 sm:w-5 sm:h-5" />}
           </button>
         </div>

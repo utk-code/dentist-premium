@@ -14,19 +14,14 @@ export const KidsGraphicComparison: React.FC<KidsGraphicComparisonProps> = ({ on
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16 space-y-3">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14 space-y-3">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-50 text-teal-800 text-xs font-semibold border border-teal-200/70">
             <Sparkles className="w-3.5 h-3.5 text-teal-600" />
             <span>The Little Orbit Difference</span>
           </div>
-
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
-            Why Bengaluru parents choose us over traditional dental clinics
+            Why parents choose us over traditional clinics
           </h2>
-
-          <p className="text-sm sm:text-base text-slate-600 font-normal leading-relaxed">
-            We redesigned pediatric dentistry from the child's perspective. Compare our gentle, biomimetic approach with outdated conventional methods.
-          </p>
         </div>
 
         {/* Comparison Table / Bento Grid */}

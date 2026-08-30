@@ -31,10 +31,6 @@ export const KidsServices: React.FC<KidsServicesProps> = ({ onOpenBooking }) => 
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
             Advanced pediatric dentistry, engineered for zero tears
           </h2>
-
-          <p className="text-sm sm:text-base text-slate-600 font-normal leading-relaxed">
-            Every procedure at Little Orbit utilizes minimally-invasive technology designed to protect natural tooth structure and eliminate clinical fear.
-          </p>
         </div>
 
         {/* Filter Chips */}

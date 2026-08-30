@@ -25,12 +25,8 @@ export const KidsFAQ: React.FC<KidsFAQProps> = ({ onOpenBooking }) => {
           </div>
 
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
-            Everything you need to know about your child’s visit
+            Common questions from parents
           </h2>
-
-          <p className="text-sm sm:text-base text-slate-600 font-normal leading-relaxed">
-            Have a specific concern about fear, procedures, or insurance? Find direct answers from our pediatric faculty below.
-          </p>
         </div>
 
         {/* Accordion List */}
@@ -44,6 +40,7 @@ export const KidsFAQ: React.FC<KidsFAQProps> = ({ onOpenBooking }) => {
               >
                 <button
                   onClick={() => toggleFAQ(idx)}
+                  aria-expanded={isOpen}
                   className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-slate-50/50 transition-colors"
                 >
                   <span className="font-bold text-slate-900 text-sm sm:text-base pr-2">

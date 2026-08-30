@@ -19,12 +19,8 @@ export const KidsDoctorTeam: React.FC<KidsDoctorTeamProps> = ({ onOpenBooking })
           </div>
 
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
-            Meet the pediatric specialists trusted by Bengaluru families
+            Meet the specialists trusted by families
           </h2>
-
-          <p className="text-sm sm:text-base text-slate-600 font-normal leading-relaxed">
-            Our doctors have dedicated their entire careers exclusively to children's oral health, airway development, and behavioral psychology.
-          </p>
         </div>
 
         {/* Doctors Grid */}

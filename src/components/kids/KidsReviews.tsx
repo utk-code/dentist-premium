@@ -15,12 +15,8 @@ export const KidsReviews: React.FC = () => {
           </div>
 
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
-            Hear from Bengaluru parents who transformed their children’s dental visits
+            What parents say about us
           </h2>
-
-          <p className="text-sm sm:text-base text-slate-600 font-normal leading-relaxed">
-            Read real experiences from mothers, pediatricians, and fathers across Indiranagar, Koramangala, and HSR Layout.
-          </p>
         </div>
 
         {/* Testimonials Grid with Real Parent Photos */}

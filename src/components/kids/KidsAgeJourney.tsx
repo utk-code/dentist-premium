@@ -23,12 +23,8 @@ export const KidsAgeJourney: React.FC<KidsAgeJourneyProps> = ({ onOpenBooking })
           </div>
 
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
-            Tailored dental care for every stage of your child’s growth
+            Care tailored to every stage of growth
           </h2>
-
-          <p className="text-sm sm:text-base text-slate-600 font-normal leading-relaxed">
-            A child's oral health needs evolve rapidly from the first baby tooth to adolescent jaw development. Select your child's age group below.
-          </p>
         </div>
 
         {/* 4 Age Tabs with Visual Thumbnails */}

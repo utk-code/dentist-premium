@@ -19,12 +19,8 @@ export const KidsSensoryAmenities: React.FC<KidsSensoryAmenitiesProps> = ({ onOp
           </div>
 
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
-            Designed to calm senses and replace anxiety with joyful wonder
+            Designed to calm senses and replace anxiety with wonder
           </h2>
-
-          <p className="text-sm sm:text-base text-slate-600 font-normal leading-relaxed">
-            From our golden retriever therapy dog to ceiling cinema screens and parent armchairs, every square inch of our clinic is engineered for total peace of mind.
-          </p>
         </div>
 
         {/* Feature Grid */}
@@ -58,7 +54,7 @@ export const KidsSensoryAmenities: React.FC<KidsSensoryAmenitiesProps> = ({ onOp
               <div className="grid grid-cols-1 sm:grid-cols-12 gap-5 mt-5 items-center">
                 <div className="sm:col-span-7">
                   <p className="text-sm text-slate-700 leading-relaxed font-normal">
-                    Barnaby is our gentle Golden Retriever certified in animal-assisted pediatric support. He is trained to rest softly beside children on the treatment chair, offering comforting weight and warm companionship that naturally reduces cortisol and calms anxious thoughts.
+                    Gentle certified therapy dog who rests beside children during treatment, naturally reducing anxiety and cortisol levels.
                   </p>
 
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-4 text-xs">
@@ -126,7 +122,7 @@ export const KidsSensoryAmenities: React.FC<KidsSensoryAmenitiesProps> = ({ onOp
                   Ceiling 4K Cinema & Cartoons
                 </h3>
                 <p className="text-xs text-slate-600 leading-relaxed mt-2">
-                  Ultra-high-definition ceiling displays positioned directly overhead. Children select their favorite shows on Netflix, Disney+, or YouTube Kids before care begins.
+                  Overhead 4K screens with Netflix, Disney+, and YouTube Kids. Children choose their show before care begins.
                 </p>
 
                 <div className="mt-3 p-3 bg-slate-50 rounded-xl border border-slate-100 text-xs text-slate-600">
@@ -164,7 +160,7 @@ export const KidsSensoryAmenities: React.FC<KidsSensoryAmenitiesProps> = ({ onOp
                   Private Soundproof Suites
                 </h3>
                 <p className="text-xs text-slate-600 leading-relaxed mt-2">
-                  No open shared clinic bays with crying children in adjacent chairs. Each family has their own private, acoustically isolated suite for complete calm.
+                  Each family gets a private, acoustically isolated suite — no shared bays, no crying children nearby.
                 </p>
 
                 <div className="mt-3 p-3 bg-slate-50 rounded-xl border border-slate-100 text-xs text-slate-600">
